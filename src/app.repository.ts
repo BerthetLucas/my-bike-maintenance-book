@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
-import { InjectDb } from './db.provider';
+import { InjectDb } from './db/db.provider';
 import { hello_pg_table } from './db/schema';
 import type { DB } from 'src';
 

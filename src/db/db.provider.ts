@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import db from './index';
+import db from '../index';
 
 export const DB_PROVIDER = 'DbProvider';
 
