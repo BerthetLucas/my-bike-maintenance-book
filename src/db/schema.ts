@@ -5,3 +5,6 @@ export const bicycle = pgTable('bicycle', {
   name: varchar().notNull(),
   isMarked: boolean().notNull().default(false),
 });
+
+export type DrizzleBicycle = typeof bicycle.$inferSelect;
+export type NewDrizzleBicycle = typeof bicycle.$inferInsert;
