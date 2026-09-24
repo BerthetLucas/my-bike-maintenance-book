@@ -1,6 +1,17 @@
 import type { Bicycle, BicycleRequest, NewBicycle } from './bicycle.model';
 import type { DrizzleBicycle, NewDrizzleBicycle } from '../db/schema';
 
+// From request to domain to insert
+export function fromBicycleRequestToNewBicycle(
+  bicycleRequest: BicycleRequest,
+): NewBicycle {
+  return {
+    name: bicycleRequest.name,
+    isMarked: bicycleRequest.isMarked,
+  };
+}
+
+// From domain to db to insert
 export function fromNewBicycleToNewDrizzleBicycle(
   newBicycle: NewBicycle,
 ): NewDrizzleBicycle {
@@ -17,23 +28,5 @@ export function fromDrizzleBicycleToBicycle(
     id: drizzleBicycle.id,
     name: drizzleBicycle.name,
     isMarked: drizzleBicycle.isMarked,
-  };
-}
-
-export function fromBicycleRequestToBicycle(
-  bicycleRequest: BicycleRequest,
-): NewBicycle {
-  return {
-    name: bicycleRequest.name,
-    isMarked: bicycleRequest.isMarked,
-  };
-}
-
-export function fromBicycleRequestToNewBicycle(
-  bicycleRequest: BicycleRequest,
-): NewBicycle {
-  return {
-    name: bicycleRequest.name,
-    isMarked: bicycleRequest.isMarked,
   };
 }
