@@ -11,7 +11,5 @@ import { BicycleModule } from './bicycle/bicycle.module';
     }),
     BicycleModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-22/09/2026
+**22/09/2026**
 
 # Struggle
 
@@ -19,3 +19,9 @@ Hard to find a centralized documentation to implement Drizzle by hand, I still h
 ## Miscellaneous
 
 Small type issues because of the missing type config on the `tsconfig.json` file.
+
+**25/09/2026**
+
+I use `command` namming in my use case in the `execute` methods by pur imitation of what is done at work, is there any convention on this ?
+
+I have some doubt about the mapper namming or/and file arrangement.

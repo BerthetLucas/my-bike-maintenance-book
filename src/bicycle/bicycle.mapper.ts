@@ -1,9 +1,11 @@
-import type { Bicycle, BicycleRequest, NewBicycle } from './bicycle.model';
+import type { Bicycle, NewBicycle } from './bicycle.model';
 import type { DrizzleBicycle, NewDrizzleBicycle } from '../db/schema';
+import type { GetBicycleDto } from './dto/get-bicycle.dto';
+import type { CreateBicycleDto } from './dto/create-bicycle.dto';
 
-// From request to domain to insert
+// POST Request -> Domain
 export function fromCreateBicycleDtoToNewBicycle(
-  bicycleRequest: BicycleRequest,
+  bicycleRequest: CreateBicycleDto,
 ): NewBicycle {
   return {
     name: bicycleRequest.name,
@@ -11,7 +13,7 @@ export function fromCreateBicycleDtoToNewBicycle(
   };
 }
 
-// From domain to db to insert
+// POST Domain -> Database
 export function fromNewBicycleToNewDrizzleBicycle(
   newBicycle: NewBicycle,
 ): NewDrizzleBicycle {
@@ -21,6 +23,7 @@ export function fromNewBicycleToNewDrizzleBicycle(
   };
 }
 
+// GET Database -> Domain
 export function fromDrizzleBicycleToBicycle(
   drizzleBicycle: DrizzleBicycle,
 ): Bicycle {
@@ -28,5 +31,14 @@ export function fromDrizzleBicycleToBicycle(
     id: drizzleBicycle.id,
     name: drizzleBicycle.name,
     isMarked: drizzleBicycle.isMarked,
+  };
+}
+
+// GET Domain -> Request
+export function fromBicycleToGetBicycleDto(bicycle: Bicycle): GetBicycleDto {
+  return {
+    id: bicycle.id,
+    name: bicycle.name,
+    isMarked: bicycle.isMarked,
   };
 }

@@ -1,8 +1,3 @@
-export interface BicycleRequest {
-  name: string;
-  isMarked: boolean;
-}
-
 export interface Bicycle {
   id: string;
   name: string;
