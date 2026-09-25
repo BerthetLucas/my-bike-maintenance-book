@@ -2,7 +2,7 @@ import type { Bicycle, BicycleRequest, NewBicycle } from './bicycle.model';
 import type { DrizzleBicycle, NewDrizzleBicycle } from '../db/schema';
 
 // From request to domain to insert
-export function fromBicycleRequestToNewBicycle(
+export function fromCreateBicycleDtoToNewBicycle(
   bicycleRequest: BicycleRequest,
 ): NewBicycle {
   return {
