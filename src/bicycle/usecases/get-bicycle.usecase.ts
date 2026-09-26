@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { BicycleRepository } from '../bicycle.repository';
-import { fromDrizzleBicycleToBicycle } from '../bicycle.mapper';
 import type { Bicycle } from '../bicycle.model';
 import { GetBicycleByIdRequestDto } from '../dto/get-bicycle.dto';
 
@@ -13,6 +12,6 @@ export class GetBicycleUseCase {
 
     const bicycle = await this.bicycleRepository.getById(id);
 
-    return fromDrizzleBicycleToBicycle(bicycle);
+    return bicycle;
   }
 }

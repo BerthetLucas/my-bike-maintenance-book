@@ -3,42 +3,54 @@ import type { DrizzleBicycle, NewDrizzleBicycle } from '../db/schema';
 import type { GetBicycleDto } from './dto/get-bicycle.dto';
 import type { CreateBicycleDto } from './dto/create-bicycle.dto';
 
-// POST Request -> Domain
-export function fromCreateBicycleDtoToNewBicycle(
-  bicycleRequest: CreateBicycleDto,
-): NewBicycle {
-  return {
-    name: bicycleRequest.name,
-    isMarked: bicycleRequest.isMarked,
-  };
+export class CreateBicycleMapper {
+  fromDomain(bicycle: NewBicycle): NewDrizzleBicycle {
+    return {
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+    };
+  }
+
+  fromDto(bicycle: CreateBicycleDto): NewBicycle {
+    return {
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+    };
+  }
 }
 
-// POST Domain -> Database
-export function fromNewBicycleToNewDrizzleBicycle(
-  newBicycle: NewBicycle,
-): NewDrizzleBicycle {
-  return {
-    name: newBicycle.name,
-    isMarked: newBicycle.isMarked,
-  };
+export class DrizzleBicycleMapper {
+  fromDomain(bicycle: Bicycle): DrizzleBicycle {
+    return {
+      id: bicycle.id,
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+    };
+  }
+
+  toDomain(bicycle: DrizzleBicycle): Bicycle {
+    return {
+      id: bicycle.id,
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+    };
+  }
 }
 
-// GET Database -> Domain
-export function fromDrizzleBicycleToBicycle(
-  drizzleBicycle: DrizzleBicycle,
-): Bicycle {
-  return {
-    id: drizzleBicycle.id,
-    name: drizzleBicycle.name,
-    isMarked: drizzleBicycle.isMarked,
-  };
-}
+export class BicycleMapper {
+  fromDto(bicycle: GetBicycleDto): Bicycle {
+    return {
+      id: bicycle.id,
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+    };
+  }
 
-// GET Domain -> Request
-export function fromBicycleToGetBicycleDto(bicycle: Bicycle): GetBicycleDto {
-  return {
-    id: bicycle.id,
-    name: bicycle.name,
-    isMarked: bicycle.isMarked,
-  };
+  toDto(bicycle: Bicycle): GetBicycleDto {
+    return {
+      id: bicycle.id,
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+    };
+  }
 }
