@@ -1,14 +1,14 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "c9a509f5-b721-4502-b103-44c759c80e29",
+  "id": "43e13344-43de-4c3a-bf39-cc81e3f1ac30",
   "prevIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
   "ddl": [
     {
       "isRlsEnabled": false,
-      "name": "hello_pg_table",
+      "name": "bicycle",
       "entityType": "tables",
       "schema": "public"
     },
@@ -23,7 +23,7 @@
       "name": "id",
       "entityType": "columns",
       "schema": "public",
-      "table": "hello_pg_table"
+      "table": "bicycle"
     },
     {
       "type": "varchar",
@@ -36,16 +36,29 @@
       "name": "name",
       "entityType": "columns",
       "schema": "public",
-      "table": "hello_pg_table"
+      "table": "bicycle"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "name": "isMarked",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle"
     },
     {
       "columns": [
         "id"
       ],
       "nameExplicit": false,
-      "name": "hello_pg_table_pkey",
+      "name": "bicycle_pkey",
       "schema": "public",
-      "table": "hello_pg_table",
+      "table": "bicycle",
       "entityType": "pks"
     }
   ],

@@ -24,6 +24,8 @@
     "@nestjs/config": "^12.0.0",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "dotenv": "^18.0.1",
     "drizzle-orm": "1.0.0-rc.4",
     "i": "^0.3.7",
