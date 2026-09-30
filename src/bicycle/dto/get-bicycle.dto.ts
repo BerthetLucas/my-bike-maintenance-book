@@ -12,6 +12,9 @@ export class GetBicycleDto {
 
   @IsBoolean()
   isMarked!: boolean;
+
+  @IsUUID()
+  modelId!: string;
 }
 
 export class GetBicycleByIdRequestDto {
