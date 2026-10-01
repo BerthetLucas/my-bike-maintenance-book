@@ -19,6 +19,7 @@ export const bicycleModel = pgTable('bicycle_model', {
 });
 
 export type DrizzleBicycleModel = typeof bicycleModel.$inferSelect;
+export type DrizzleNewBicycleModel = typeof bicycleModel.$inferInsert;
 
 export const relations = defineRelations({ bicycleModel, bicycle }, (r) => ({
   bicycle: {
