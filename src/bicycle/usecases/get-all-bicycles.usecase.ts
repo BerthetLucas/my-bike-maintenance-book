@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { BicycleRepository } from '../bicycle.repository';
-import type { Bicycle } from '../bicycle.model';
+import type { BicycleWithModel } from '../bicycle.model';
+import { BicycleModelRepository } from 'src/bicycle_model/bicycle_model.repository';
 
 @Injectable()
 export class GetAllBicyclesUseCase {
-  constructor(private readonly bicycleRepository: BicycleRepository) {}
+  constructor(
+    private readonly bicycleRepository: BicycleRepository,
+    private readonly bicycleModelRepository: BicycleModelRepository,
+  ) {}
 
-  async execute(): Promise<Bicycle[]> {
-    const bicycles = await this.bicycleRepository.getAll();
+  async execute(): Promise<BicycleWithModel[]> {
+    const bicycles = await this.bicycleRepository.getAllWithModel();
 
     return bicycles;
   }
