@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { GetOneBicycleController } from '../get-one-bicycle.controller';
 import { vi } from 'vitest';
 import { GetBicycleUseCase } from 'src/bicycle/usecases/get-bicycle.usecase';
-import { Bicycle } from 'src/bicycle/bicycle.model';
+import { BicycleWithModel } from 'src/bicycle/bicycle.model';
 import { BicycleMapper } from 'src/bicycle/bicycle.mapper';
 import { GetBicycleByIdRequestDto } from 'src/bicycle/dto/get-bicycle.dto';
 
@@ -28,7 +28,9 @@ describe('GetOneBicycleController', () => {
         id: '3f8a1c62-9b47-4e0d-a5c3-71d2e8f60b94',
         name: 'myBike',
         isMarked: true,
-      } as Bicycle;
+        modelId: 'my-id',
+        modelName: 'my-name',
+      } as BicycleWithModel;
 
       const param =
         '3f8a1c62-9b47-4e0d-a5c3-71d2e8f60b94' as unknown as GetBicycleByIdRequestDto;

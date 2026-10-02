@@ -14,6 +14,6 @@ export class GetAllBicycleController {
   async getAllBicycles(): Promise<GetBicycleDto[]> {
     const bicycles = await this.getAllBicyclesUseCase.execute();
 
-    return bicycles.map((b) => this.bicyclemapper.toDto(b));
+    return bicycles;
   }
 }

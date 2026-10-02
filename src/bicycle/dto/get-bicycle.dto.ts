@@ -15,6 +15,9 @@ export class GetBicycleDto {
 
   @IsUUID()
   modelId!: string;
+
+  @IsString()
+  modelName!: string;
 }
 
 export class GetBicycleByIdRequestDto {

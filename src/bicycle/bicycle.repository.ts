@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBicycleMapper, DrizzleBicycleMapper } from './bicycle.mapper';
 import type { DB } from '../index';
-import type { Bicycle, NewBicycle } from './bicycle.model';
-import { bicycle as bicycleTable } from '../db/schema';
+import type { Bicycle, BicycleWithModel, NewBicycle } from './bicycle.model';
+import { bicycleModel, bicycle as bicycleTable } from '../db/schema';
 import { InjectDb } from '../db/db.provider';
 import { eq } from 'drizzle-orm';
 
@@ -37,5 +37,23 @@ export class BicycleRepository {
     const bicycle = this.bicycleMapper.toDomain(bicycleRow);
 
     return bicycle;
+  }
+
+  async getAllWithModel(): Promise<BicycleWithModel[]> {
+    const rows = await this.db
+      .select({
+        bicycle: bicycleTable,
+        model: bicycleModel,
+      })
+      .from(bicycleTable)
+      .innerJoin(bicycleModel, eq(bicycleTable.modelId, bicycleModel.id));
+
+    return rows.map(({ bicycle, model }) => ({
+      id: bicycle.id,
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+      modelId: model.id,
+      modelName: model.name,
+    }));
   }
 }

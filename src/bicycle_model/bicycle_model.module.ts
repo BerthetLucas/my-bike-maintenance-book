@@ -27,5 +27,6 @@ import { GetOneBicycleModelController } from './controllers/get-bicycle_model.co
     BicycleModelMapper,
     GetOneBicycleModelsUseCase,
   ],
+  exports: [BicycleModelRepository],
 })
 export class BicycleModelModule {}

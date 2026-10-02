@@ -1,17 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { BicycleRepository } from '../bicycle.repository';
-import type { Bicycle } from '../bicycle.model';
+import type { Bicycle, BicycleWithModel } from '../bicycle.model';
 import { GetBicycleByIdRequestDto } from '../dto/get-bicycle.dto';
+import { BicycleModelRepository } from 'src/bicycle_model/bicycle_model.repository';
+import { BicycleModel } from 'src/bicycle_model/bicycle.model';
 
 @Injectable()
 export class GetBicycleUseCase {
-  constructor(private readonly bicycleRepository: BicycleRepository) {}
+  constructor(
+    private readonly bicycleRepository: BicycleRepository,
+    private readonly bicycleModelRepository: BicycleModelRepository,
+  ) {}
 
-  async execute(command: GetBicycleByIdRequestDto): Promise<Bicycle> {
+  async execute(command: GetBicycleByIdRequestDto): Promise<BicycleWithModel> {
     const { id } = command;
-
     const bicycle = await this.bicycleRepository.getById(id);
+    const { modelId } = bicycle;
+    const model = await this.bicycleModelRepository.getById(modelId);
 
-    return bicycle;
+    return this.toBicycleWithModel(bicycle, model);
+  }
+
+  toBicycleWithModel(bicycle: Bicycle, model: BicycleModel): BicycleWithModel {
+    return {
+      id: bicycle.id,
+      name: bicycle.name,
+      isMarked: bicycle.isMarked,
+      modelName: model.name,
+      modelId: model.id,
+    };
   }
 }
