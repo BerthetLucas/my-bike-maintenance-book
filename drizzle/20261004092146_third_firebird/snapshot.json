@@ -1,0 +1,236 @@
+{
+  "version": "8",
+  "dialect": "postgres",
+  "id": "030c076a-1e01-4f98-8da9-983f9d5d5b22",
+  "prevIds": [
+    "43e13344-43de-4c3a-bf39-cc81e3f1ac30"
+  ],
+  "ddl": [
+    {
+      "isRlsEnabled": false,
+      "name": "bicycle",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "bicycle_model",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "brand",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "name": "isMarked",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "modelId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle_model"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle_model"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "brandId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle_model"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "brand"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "brand"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "sparePartOnly",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "brand"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "bicycleOnly",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "brand"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "modelId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "bicycle_model",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "bicycle_modelId_bicycle_model_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "bicycle"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "brandId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "brand",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "bicycle_model_brandId_brand_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "bicycle_model"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "bicycle_pkey",
+      "schema": "public",
+      "table": "bicycle",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "bicycle_model_pkey",
+      "schema": "public",
+      "table": "bicycle_model",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "brand_pkey",
+      "schema": "public",
+      "table": "brand",
+      "entityType": "pks"
+    }
+  ],
+  "renames": []
+}
