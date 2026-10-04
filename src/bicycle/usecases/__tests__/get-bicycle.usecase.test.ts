@@ -2,7 +2,6 @@ import { vi } from 'vitest';
 import { GetBicycleUseCase } from '../get-bicycle.usecase';
 import { Test } from '@nestjs/testing';
 import { BicycleRepository } from 'src/bicycle/bicycle.repository';
-import { GetBicycleByIdRequestDto } from 'src/bicycle/dto/get-bicycle.dto';
 import { Bicycle } from 'src/bicycle/bicycle.model';
 import { BicycleModelRepository } from 'src/bicycle_model/bicycle_model.repository';
 
