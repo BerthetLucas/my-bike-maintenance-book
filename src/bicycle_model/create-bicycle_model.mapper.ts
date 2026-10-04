@@ -7,12 +7,14 @@ export class CreateBicycleModelMapper {
   fromDto(model: CreateBicycleModelDto): NewBicycleModel {
     return {
       name: model.name,
+      brandId: model.brandId,
     };
   }
 
   fromDomain(model: NewBicycleModel): DrizzleNewBicycleModel {
     return {
       name: model.name,
+      brandId: model.brandId,
     };
   }
 }
@@ -35,6 +37,7 @@ export class DrizzleBicycleModelMapper {
     return {
       id: model.id,
       name: model.name,
+      brandId: model.brandId,
     };
   }
 
@@ -42,6 +45,7 @@ export class DrizzleBicycleModelMapper {
     return {
       id: model.id,
       name: model.name,
+      brandId: model.brandId,
     };
   }
 }

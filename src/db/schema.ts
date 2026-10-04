@@ -27,8 +27,8 @@ export type DrizzleNewBicycleModel = typeof bicycleModel.$inferInsert;
 export const brand = pgTable('brand', {
   id: uuid().primaryKey().defaultRandom(),
   name: varchar().notNull(),
-  sparePartOnly: boolean(),
-  bicycleOnly: boolean(),
+  sparePartOnly: boolean().notNull(),
+  bicycleOnly: boolean().notNull(),
 });
 
 export type DrizzleBrand = typeof brand.$inferSelect;
