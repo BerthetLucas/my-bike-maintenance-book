@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateBicycleDto {
   @IsString()
@@ -7,4 +7,8 @@ export class CreateBicycleDto {
 
   @IsBoolean()
   isMarked!: boolean;
+
+  @IsUUID()
+  @IsNotEmpty()
+  modelId!: string;
 }
