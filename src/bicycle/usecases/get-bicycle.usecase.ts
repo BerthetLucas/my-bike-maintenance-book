@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { BicycleRepository } from '../bicycle.repository';
 import type { Bicycle, BicycleWithModel } from '../bicycle.model';
-import { GetBicycleByIdRequestDto } from '../dto/get-bicycle.dto';
 import { BicycleModelRepository } from 'src/bicycle_model/bicycle_model.repository';
 import { BicycleModel } from 'src/bicycle_model/bicycle.model';
 
@@ -12,8 +11,7 @@ export class GetBicycleUseCase {
     private readonly bicycleModelRepository: BicycleModelRepository,
   ) {}
 
-  async execute(command: GetBicycleByIdRequestDto): Promise<BicycleWithModel> {
-    const { id } = command;
+  async execute(id: string): Promise<BicycleWithModel> {
     const bicycle = await this.bicycleRepository.getById(id);
     const { modelId } = bicycle;
     const model = await this.bicycleModelRepository.getById(modelId);

@@ -17,7 +17,9 @@ export class GetOneBicycleModelController {
   async getOne(
     @Param() requestModel: GetBicycleModelByIdRequestDto,
   ): Promise<BicycleModelDto> {
-    const model = await this.usecase.execute(requestModel);
+    const id = this.mapper.fromDto(requestModel);
+
+    const model = await this.usecase.execute(id);
 
     return this.mapper.toDto(model);
   }

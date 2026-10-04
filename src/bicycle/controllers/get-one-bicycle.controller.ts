@@ -18,7 +18,9 @@ export class GetOneBicycleController {
   async getOneBicycle(
     @Param() getBicycleDto: GetBicycleByIdRequestDto,
   ): Promise<GetBicycleDto> {
-    const bicycle = await this.getBicycleUseCase.execute(getBicycleDto);
+    const id = this.bicyclemapper.fromDto(getBicycleDto);
+
+    const bicycle = await this.getBicycleUseCase.execute(id);
 
     return this.bicyclemapper.toDto(bicycle);
   }

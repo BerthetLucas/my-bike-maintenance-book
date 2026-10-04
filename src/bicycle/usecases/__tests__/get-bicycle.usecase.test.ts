@@ -47,8 +47,7 @@ describe('GetBicycleUseCase', () => {
         modelId: 'model-id',
       };
 
-      const arg =
-        '3f8a1c62-9b47-4e0d-a5c3-71d2e8f60b94' as unknown as GetBicycleByIdRequestDto;
+      const arg = '3f8a1c62-9b47-4e0d-a5c3-71d2e8f60b94';
 
       expect(await usecase.execute(arg)).toStrictEqual(result);
     });
