@@ -1,7 +1,8 @@
 import { DrizzleBicycleModel, DrizzleNewBicycleModel } from 'src/db/schema';
 import { BicycleModel, NewBicycleModel } from './bicycle.model';
 import { CreateBicycleModelDto } from './dto/create-bicycle-model.dto';
-import { GetBicycleModelByIdRequestDto } from './dto/get-bicycle-model.dto';
+import { BicycleModelRequestDto } from './dto/get-bicycle-model.dto';
+import { Brand } from 'src/brand/brand.model';
 
 export class CreateBicycleModelMapper {
   fromDto(model: CreateBicycleModelDto): NewBicycleModel {
@@ -20,14 +21,15 @@ export class CreateBicycleModelMapper {
 }
 
 export class BicycleModelMapper {
-  fromDto(model: GetBicycleModelByIdRequestDto): string {
+  fromDto(model: BicycleModelRequestDto): string {
     return model.id;
   }
 
-  toDto(model: BicycleModel) {
+  toDto(model: BicycleModel, brand: Brand) {
     return {
       id: model.id,
       name: model.name,
+      brandName: brand.name,
     };
   }
 }

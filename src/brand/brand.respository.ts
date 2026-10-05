@@ -23,6 +23,10 @@ export class BrandRepository {
   async getOne(id: string): Promise<Brand> {
     const [row] = await this.db.select().from(brand).where(eq(brand.id, id));
 
+    if (!row) {
+      throw new Error('This brand id does not exist');
+    }
+
     const uniqBrand = this.brandMapper.toDomain(row);
 
     return uniqBrand;

@@ -1,10 +1,9 @@
-import type { Bicycle, BicycleWithModel, NewBicycle } from './bicycle.model';
+import type { Bicycle, NewBicycle } from './bicycle.model';
 import type { DrizzleBicycle, NewDrizzleBicycle } from '../db/schema';
-import {
-  GetBicycleByIdRequestDto,
-  type GetBicycleDto,
-} from './dto/get-bicycle.dto';
+import { BicycleRequestDto, BicycleResponseDto } from './dto/get-bicycle.dto';
 import type { CreateBicycleDto } from './dto/create-bicycle.dto';
+import { BicycleModel } from 'src/bicycle_model/bicycle.model';
+import { Brand } from 'src/brand/brand.model';
 
 export class CreateBicycleMapper {
   fromDomain(bicycle: NewBicycle): NewDrizzleBicycle {
@@ -45,17 +44,21 @@ export class DrizzleBicycleMapper {
 }
 
 export class BicycleMapper {
-  fromDto(bicycle: GetBicycleByIdRequestDto): string {
+  fromDto(bicycle: BicycleRequestDto): string {
     return bicycle.id;
   }
 
-  toDto(bicycle: BicycleWithModel): GetBicycleDto {
+  toDto(
+    bicycle: Bicycle,
+    model: BicycleModel,
+    brand: Brand,
+  ): BicycleResponseDto {
     return {
       id: bicycle.id,
       name: bicycle.name,
       isMarked: bicycle.isMarked,
-      modelName: bicycle.modelName,
-      modelId: bicycle.modelId,
+      modelName: model.name,
+      brandName: brand.name,
     };
   }
 }

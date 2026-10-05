@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBicycleMapper, DrizzleBicycleMapper } from './bicycle.mapper';
 import type { DB } from '../index';
-import type { Bicycle, BicycleWithModel, NewBicycle } from './bicycle.model';
-import { bicycleModel, bicycle as bicycleTable } from '../db/schema';
+import type { Bicycle, NewBicycle } from './bicycle.model';
+import {
+  bicycleModel,
+  bicycle as bicycleTable,
+  brand as brandTable,
+} from '../db/schema';
 import { InjectDb } from '../db/db.provider';
 import { eq } from 'drizzle-orm';
+import { BicycleModel } from 'src/bicycle_model/bicycle.model';
+import { Brand } from 'src/brand/brand.model';
 
 @Injectable()
 export class BicycleRepository {
@@ -34,26 +40,36 @@ export class BicycleRepository {
       .from(bicycleTable)
       .where(eq(bicycleTable.id, id));
 
+    if (!bicycleRow) {
+      throw new Error('This bicycle id does not exist');
+    }
+
     const bicycle = this.bicycleMapper.toDomain(bicycleRow);
 
     return bicycle;
   }
 
-  async getAllWithModel(): Promise<BicycleWithModel[]> {
+  async getAllWithModel(): Promise<
+    {
+      bicycle: Bicycle;
+      model: BicycleModel;
+      brand: Brand;
+    }[]
+  > {
     const rows = await this.db
       .select({
         bicycle: bicycleTable,
         model: bicycleModel,
+        brand: brandTable,
       })
       .from(bicycleTable)
-      .innerJoin(bicycleModel, eq(bicycleTable.modelId, bicycleModel.id));
+      .innerJoin(bicycleModel, eq(bicycleTable.modelId, bicycleModel.id))
+      .innerJoin(brandTable, eq(bicycleModel.brandId, brandTable.id));
 
-    return rows.map(({ bicycle, model }) => ({
-      id: bicycle.id,
-      name: bicycle.name,
-      isMarked: bicycle.isMarked,
-      modelId: model.id,
-      modelName: model.name,
+    return rows.map((r) => ({
+      bicycle: this.bicycleMapper.toDomain(r.bicycle),
+      model: r.model,
+      brand: r.brand,
     }));
   }
 }

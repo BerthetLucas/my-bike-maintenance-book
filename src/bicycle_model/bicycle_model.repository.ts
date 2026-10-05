@@ -6,8 +6,9 @@ import {
   DrizzleBicycleModelMapper,
 } from './create-bicycle_model.mapper';
 import { BicycleModel, NewBicycleModel } from './bicycle.model';
-import { bicycleModel } from 'src/db/schema';
+import { bicycleModel, brand } from 'src/db/schema';
 import { eq } from 'drizzle-orm';
+import { Brand } from 'src/brand/brand.model';
 
 @Injectable()
 export class BicycleModelRepository {
@@ -37,6 +38,25 @@ export class BicycleModelRepository {
       .from(bicycleModel)
       .where(eq(bicycleModel.id, id));
 
+    if (!modelRow) {
+      throw new Error('This model id does not exist');
+    }
+
     return this.dbMapper.toDomain(modelRow);
+  }
+
+  async getAllWithBrand(): Promise<{ model: BicycleModel; brand: Brand }[]> {
+    const rows = await this.db
+      .select({
+        bicycleModel,
+        brand,
+      })
+      .from(bicycleModel)
+      .innerJoin(brand, eq(bicycleModel.brandId, brand.id));
+
+    return rows.map((r) => ({
+      model: this.dbMapper.toDomain(r.bicycleModel),
+      brand: r.brand,
+    }));
   }
 }

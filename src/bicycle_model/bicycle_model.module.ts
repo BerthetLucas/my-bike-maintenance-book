@@ -11,6 +11,7 @@ import { GetAllBicycleModelController } from './controllers/get-bicycles_models.
 import { GetAllBicycleModelsUseCase } from './usecases/get-all-bicycles_models.usecase';
 import { GetOneBicycleModelsUseCase } from './usecases/get-bicycle_model.usecase';
 import { GetOneBicycleModelController } from './controllers/get-bicycle_model.controller';
+import { BrandModule } from 'src/brand/brand.module';
 
 @Module({
   controllers: [
@@ -28,5 +29,6 @@ import { GetOneBicycleModelController } from './controllers/get-bicycle_model.co
     GetOneBicycleModelsUseCase,
   ],
   exports: [BicycleModelRepository],
+  imports: [BrandModule],
 })
 export class BicycleModelModule {}

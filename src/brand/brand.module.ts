@@ -29,5 +29,6 @@ import { GetOneBrandController } from './controllers/get-one.controller';
     GetAllBrandController,
     CreateBrandController,
   ],
+  exports: [BrandRepository],
 })
 export class BrandModule {}

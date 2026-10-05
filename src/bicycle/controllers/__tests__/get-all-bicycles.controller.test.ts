@@ -3,7 +3,6 @@ import { BicycleMapper } from 'src/bicycle/bicycle.mapper';
 import { GetAllBicyclesUseCase } from 'src/bicycle/usecases/get-all-bicycles.usecase';
 import { GetAllBicycleController } from '../get-all-bicycles.controller';
 import { vi } from 'vitest';
-import { BicycleWithModel } from 'src/bicycle/bicycle.model';
 
 describe('GetBicycleController', () => {
   let controller: GetAllBicycleController;

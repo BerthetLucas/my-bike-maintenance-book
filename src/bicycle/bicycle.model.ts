@@ -5,14 +5,6 @@ export interface Bicycle {
   modelId: string;
 }
 
-export interface BicycleWithModel {
-  id: string;
-  name: string;
-  isMarked: boolean;
-  modelName: string;
-  modelId: string;
-}
-
 export interface NewBicycle {
   name: string;
   isMarked: boolean;
