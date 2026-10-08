@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { BicycleModelMapper } from '../create-bicycle_model.mapper';
+import { BicycleModelMapper } from '../create-bicycle-model.mapper';
 
 import { GetAllBicycleModelsUseCase } from '../usecases/get-all-bicycles_models.usecase';
 import { BicycleModelResponseDto } from '../dto/get-bicycle-model.dto';
@@ -15,8 +15,6 @@ export class GetAllBicycleModelController {
   async getAll(): Promise<BicycleModelResponseDto[]> {
     const models = await this.usecase.execute();
 
-    const dtoModels = models.map((m) => this.mapper.toDto(m.model, m.brand));
-
-    return dtoModels;
+    return models.map((model) => this.mapper.toDto(model));
   }
 }

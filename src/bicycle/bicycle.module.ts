@@ -12,7 +12,7 @@ import { GetAllBicycleController } from './controllers/get-all-bicycles.controll
 import { CreateBicycleController } from './controllers/create-bicycle.controller';
 import { GetOneBicycleController } from './controllers/get-one-bicycle.controller';
 
-import { BicycleModelModule } from 'src/bicycle_model/bicycle_model.module';
+import { BicycleModelModule } from 'src/bicycle-model/bicycle-model.module';
 import { BrandModule } from 'src/brand/brand.module';
 
 @Module({

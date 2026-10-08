@@ -3,7 +3,7 @@ import { GetBicycleUseCase } from '../get-bicycle.usecase';
 import { Test } from '@nestjs/testing';
 import { BicycleRepository } from 'src/bicycle/bicycle.repository';
 import { Bicycle } from 'src/bicycle/bicycle.model';
-import { BicycleModelRepository } from 'src/bicycle_model/bicycle_model.repository';
+import { BicycleModelRepository } from 'src/bicycle-model/bicycle-model.repository';
 
 describe('GetBicycleUseCase', () => {
   let usecase: GetBicycleUseCase;

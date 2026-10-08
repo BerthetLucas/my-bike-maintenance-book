@@ -1,4 +1,4 @@
-import { BicycleModel } from '../bicycle_model/bicycle.model';
+import { BicycleModel } from '../bicycle-model/bicycle.model';
 
 interface BicycleConstructorParams {
   id: string;

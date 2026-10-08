@@ -1,10 +1,15 @@
-import { DrizzleBicycleModel, DrizzleNewBicycleModel } from 'src/db/schema';
+import {
+  DrizzleBicycleModel,
+  DrizzleBrand,
+  DrizzleNewBicycleModel,
+} from 'src/db/schema';
 import { BicycleModel } from './bicycle.model';
 import { CreateBicycleModelDto } from './dto/create-bicycle-model.dto';
-import { BicycleModelRequestDto } from './dto/get-bicycle-model.dto';
 import { Brand } from 'src/brand/brand.model';
-import { NewBicycleModel } from './new-bicycle.model';
+import { NewBicycleModel } from './new-bicycle-model.model';
+import { Injectable } from '@nestjs/common';
 
+// TODO Move this mapper
 export class CreateBicycleModelMapper {
   fromDto(model: CreateBicycleModelDto): NewBicycleModel {
     return {
@@ -21,34 +26,35 @@ export class CreateBicycleModelMapper {
   }
 }
 
+// TODO Move this mapper
 export class BicycleModelMapper {
-  fromDto(model: BicycleModelRequestDto): string {
-    return model.id;
-  }
-
-  toDto(model: BicycleModel, brand: Brand) {
+  toDto(model: BicycleModel) {
     return {
       id: model.id,
       name: model.name,
-      brandName: brand.name,
+      brandName: model.brand.name,
     };
   }
 }
 
+@Injectable()
 export class DrizzleBicycleModelMapper {
-  toDomain(model: DrizzleBicycleModel): BicycleModel {
-    return {
+  toDomain({
+    model,
+    brand,
+  }: {
+    model: DrizzleBicycleModel;
+    brand: DrizzleBrand;
+  }): BicycleModel {
+    return new BicycleModel({
       id: model.id,
       name: model.name,
-      brandId: model.brandId,
-    };
-  }
-
-  fromDomain(model: BicycleModel): DrizzleBicycleModel {
-    return {
-      id: model.id,
-      name: model.name,
-      brandId: model.brandId,
-    };
+      brand: new Brand({
+        id: brand.id,
+        name: brand.name,
+        bicycleOnly: brand.bicycleOnly,
+        sparePartOnly: brand.sparePartOnly,
+      }),
+    });
   }
 }

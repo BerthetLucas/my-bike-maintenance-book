@@ -1,5 +1,5 @@
 import { Bicycle } from './bicycle.model';
-import type {
+import {
   DrizzleBicycle,
   DrizzleBicycleModel,
   DrizzleBrand,
@@ -7,9 +7,9 @@ import type {
 } from '../db/schema';
 import { BicycleRequestDto, BicycleResponseDto } from './dto/get-bicycle.dto';
 import type { CreateBicycleDto } from './dto/create-bicycle.dto';
-import { BicycleModel } from 'src/bicycle_model/bicycle.model';
-import { Brand } from 'src/brand/brand.model';
 import { NewBicycle } from './new-bicycle.model';
+import { Injectable } from '@nestjs/common';
+import { DrizzleBicycleModelMapper } from '../bicycle-model/create-bicycle-model.mapper';
 
 export class CreateBicycleMapper {
   fromDomain(bicycle: NewBicycle): NewDrizzleBicycle {
@@ -29,7 +29,10 @@ export class CreateBicycleMapper {
   }
 }
 
+@Injectable()
 export class DrizzleBicycleMapper {
+  constructor(private readonly modelMapper: DrizzleBicycleModelMapper) {}
+
   fromDomain(bicycle: Bicycle): DrizzleBicycle {
     return {
       id: bicycle.id,
@@ -52,16 +55,7 @@ export class DrizzleBicycleMapper {
       id: bicycle.id,
       name: bicycle.name,
       isMarked: bicycle.isMarked,
-      model: new BicycleModel({
-        id: model.id,
-        name: model.name,
-        brand: new Brand({
-          id: brand.id,
-          name: brand.name,
-          bicycleOnly: brand.bicycleOnly,
-          sparePartOnly: brand.sparePartOnly,
-        }),
-      }),
+      model: this.modelMapper.toDomain({ model, brand }),
     });
   }
 }

@@ -19,8 +19,6 @@ export class GetOneBicycleController {
 
     const bicycle = await this.getBicycleUseCase.execute(id);
 
-    const { bicycle: bicycleData, model, brand } = bicycle;
-
-    return this.bicyclemapper.toDto(bicycleData, model, brand);
+    return this.bicyclemapper.toDto(bicycle);
   }
 }
