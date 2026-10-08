@@ -25,3 +25,15 @@ Small type issues because of the missing type config on the `tsconfig.json` file
 I use `command` namming in my use case in the `execute` methods by pur imitation of what is done at work, is there any convention on this ?
 
 I have some doubt about the mapper namming or/and file arrangement.
+
+
+# TODO
+
+1 interface / dto / mapper par fichier
+
+
+Test d'integration du controller get all bicycle
+Outillage: Prerequis être capable de démarrer une DB (avec les migrations run dessus) dans les tests et de la reset à chaque test
+1. Arrange: Insérer en DB 2 bicycles 
+2. Act Faire l'appel GET /bicycles
+3. Assert: le retour http
