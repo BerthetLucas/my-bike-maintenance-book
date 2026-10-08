@@ -1,14 +1,15 @@
 import { DrizzleBrand, DrizzleNewBrand } from 'src/db/schema';
 import {
   Brand,
-  CreateNewBrandRequestDto,
-  GetBrandResponseDto,
-  GetBrandResquestDto,
-  NewBrand,
+
 } from './brand.model';
+import { CreateNewBrandRequestDto } from './dto/create-new-brand-request.dto';
+import { GetBrandRequestDto } from './dto/get-brand-request.dto';
+import { GetBrandResponseDto } from './dto/get-brand-response.dto';
+import { NewBrand } from './new-brand.model';
 
 export class BrandMapper {
-  fromDto(brand: GetBrandResquestDto): string {
+  fromDto(brand: GetBrandRequestDto): string {
     return brand.id;
   }
 

@@ -1,10 +1,19 @@
-export interface BicycleModel {
+import { Brand } from '../brand/brand.model';
+
+interface BicycleModelConstructorParams {
   id: string;
   name: string;
-  brandId: string;
+  brand: Brand;
 }
 
-export interface NewBicycleModel {
+export class BicycleModel {
+  id: string;
   name: string;
-  brandId: string;
+  brand: Brand;
+
+  constructor({ id, name, brand }: BicycleModelConstructorParams) {
+    this.id = id;
+    this.name = name;
+    this.brand = brand;
+  }
 }

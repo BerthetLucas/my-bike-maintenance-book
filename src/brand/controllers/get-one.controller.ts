@@ -1,7 +1,8 @@
 import { BrandMapper } from '../brand.mapper';
 import { Controller, Get, Param } from '@nestjs/common';
-import type { GetBrandResponseDto, GetBrandResquestDto } from '../brand.model';
 import { GetOneBrandUseCase } from '../usecases/get-one-brand.usecase';
+import { GetBrandRequestDto } from '../dto/get-brand-request.dto';
+import { GetBrandResponseDto } from '../dto/get-brand-response.dto';
 
 @Controller('brands')
 export class GetOneBrandController {
@@ -12,7 +13,7 @@ export class GetOneBrandController {
 
   @Get(':id')
   async getOne(
-    @Param() brandRequest: GetBrandResquestDto,
+    @Param() brandRequest: GetBrandRequestDto,
   ): Promise<GetBrandResponseDto> {
     const id = this.mapper.fromDto(brandRequest);
 

@@ -1,46 +1,25 @@
-import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
-
-export class CreateNewBrandRequestDto {
-  @IsString()
-  @IsNotEmpty()
-  name!: string;
-
-  @IsBoolean()
-  sparePartOnly!: boolean;
-
-  @IsBoolean()
-  bicycleOnly!: boolean;
-}
-
-export class GetBrandResquestDto {
-  @IsUUID()
-  id!: string;
-}
-
-export class GetBrandResponseDto {
-  @IsUUID()
-  id!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  name!: string;
-
-  @IsBoolean()
-  sparePartOnly!: boolean;
-
-  @IsBoolean()
-  bicycleOnly!: boolean;
-}
-
-export interface Brand {
+interface BrandConstructorParams {
   id: string;
   name: string;
   sparePartOnly: boolean;
   bicycleOnly: boolean;
 }
 
-export interface NewBrand {
+export class Brand {
+  id: string;
   name: string;
   sparePartOnly: boolean;
   bicycleOnly: boolean;
+
+  constructor({
+    id,
+    name,
+    sparePartOnly,
+    bicycleOnly,
+  }: BrandConstructorParams) {
+    this.id = id;
+    this.name = name;
+    this.sparePartOnly = sparePartOnly;
+    this.bicycleOnly = bicycleOnly;
+  }
 }

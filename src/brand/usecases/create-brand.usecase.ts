@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BrandRepository } from '../brand.respository';
-import { NewBrand } from '../brand.model';
+
+import { NewBrand } from '../new-brand.model';
 
 @Injectable()
 export class CreateBrandUseCase {

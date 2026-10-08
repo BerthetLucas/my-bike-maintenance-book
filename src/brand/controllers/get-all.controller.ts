@@ -1,7 +1,7 @@
 import { BrandMapper } from '../brand.mapper';
 import { Controller, Get } from '@nestjs/common';
-import type { GetBrandResponseDto } from '../brand.model';
 import { GetAllBrandUseCase } from '../usecases/get-all-brand.usecase';
+import { GetBrandResponseDto } from '../dto/get-brand-response.dto';
 
 @Controller('brands')
 export class GetAllBrandController {

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import type { DB } from '../index';
 import { InjectDb } from 'src/db/db.provider';
-import { Brand, NewBrand } from './brand.model';
+import { Brand } from './brand.model';
 import { DrizzleBrandMapper, DrizzleNewBrandMapper } from './brand.mapper';
 import { brand } from 'src/db/schema';
 import { eq } from 'drizzle-orm';
+import { NewBrand } from './new-brand.model';
 
 @Injectable()
 export class BrandRepository {

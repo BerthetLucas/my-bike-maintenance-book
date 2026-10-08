@@ -7,15 +7,13 @@ import { BicycleResponseDto } from '../dto/get-bicycle.dto';
 export class GetAllBicycleController {
   constructor(
     private readonly getAllBicyclesUseCase: GetAllBicyclesUseCase,
-    private readonly bicyclemapper: BicycleMapper,
+    private readonly bicycleMapper: BicycleMapper,
   ) {}
 
   @Get()
   async getAllBicycles(): Promise<BicycleResponseDto[]> {
     const bicycles = await this.getAllBicyclesUseCase.execute();
 
-    return bicycles.map((b) =>
-      this.bicyclemapper.toDto(b.bicycle, b.model, b.brand),
-    );
+    return bicycles.map((bicycle) => this.bicycleMapper.toDto(bicycle));
   }
 }

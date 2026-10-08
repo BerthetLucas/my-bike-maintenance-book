@@ -5,10 +5,11 @@ import {
   CreateBicycleModelMapper,
   DrizzleBicycleModelMapper,
 } from './create-bicycle_model.mapper';
-import { BicycleModel, NewBicycleModel } from './bicycle.model';
+import { BicycleModel } from './bicycle.model';
 import { bicycleModel, brand } from 'src/db/schema';
 import { eq } from 'drizzle-orm';
 import { Brand } from 'src/brand/brand.model';
+import { NewBicycleModel } from './new-bicycle.model';
 
 @Injectable()
 export class BicycleModelRepository {
