@@ -1,9 +1,4 @@
-interface BrandConstructorParams {
-  id: string;
-  name: string;
-  sparePartOnly: boolean;
-  bicycleOnly: boolean;
-}
+import { BrandConstructorParams } from './brand-constructor-params.model';
 
 export class Brand {
   id: string;

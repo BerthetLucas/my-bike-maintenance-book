@@ -1,11 +1,5 @@
-import { BicycleModel } from '../bicycle-model/bicycle.model';
-
-interface BicycleConstructorParams {
-  id: string;
-  name: string;
-  isMarked: boolean;
-  model: BicycleModel;
-}
+import { BicycleModel } from '../../bicycle-model/models/bicycle-model.model';
+import { BicycleConstructorParams } from './bicycle-constructor-params.model';
 
 export class Bicycle {
   id: string;

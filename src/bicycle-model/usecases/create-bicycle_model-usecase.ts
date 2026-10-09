@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BicycleModelRepository } from '../bicycle-model.repository';
 import { BrandRepository } from 'src/brand/brand.respository';
-import { NewBicycleModel } from '../new-bicycle-model.model';
+import { NewBicycleModel } from '../models/new-bicycle-model.model';
 
 @Injectable()
 export class CreateBicycleModelUseCase {

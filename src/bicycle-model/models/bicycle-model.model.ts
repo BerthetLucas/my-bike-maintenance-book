@@ -1,10 +1,5 @@
-import { Brand } from '../brand/brand.model';
-
-interface BicycleModelConstructorParams {
-  id: string;
-  name: string;
-  brand: Brand;
-}
+import { Brand } from '../../brand/models/brand.model';
+import { BicycleModelConstructorParams } from './bicycle-model-constructor-params.model';
 
 export class BicycleModel {
   id: string;

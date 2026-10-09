@@ -1,7 +1,7 @@
-import { NewBrandMapper } from '../brand.mapper';
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateBrandUseCase } from '../usecases/create-brand.usecase';
 import { CreateNewBrandRequestDto } from '../dto/create-new-brand-request.dto';
+import { NewBrandMapper } from '../mappers/new-brand.mapper';
 
 @Controller('brands')
 export class CreateBrandController {

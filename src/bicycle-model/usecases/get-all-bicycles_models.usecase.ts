@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BicycleModel } from '../bicycle.model';
+import { BicycleModel } from '../models/bicycle-model.model';
 import { BicycleModelRepository } from '../bicycle-model.repository';
 
 @Injectable()

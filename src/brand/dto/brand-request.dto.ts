@@ -1,6 +1,6 @@
 import { IsUUID } from 'class-validator';
 
-export class GetBrandRequestDto {
+export class BrandRequestDto {
   @IsUUID()
   id!: string;
 }
