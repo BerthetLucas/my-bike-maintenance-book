@@ -1,10 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { BicycleMapper } from '../bicycle.mapper';
 
-import {
-  GetBicycleDto,
-  GetBicycleByIdRequestDto,
-} from '../dto/get-bicycle.dto';
+import { BicycleRequestDto, BicycleResponseDto } from '../dto/get-bicycle.dto';
 import { GetBicycleUseCase } from '../usecases/get-bicycle.usecase';
 
 @Controller('bicycles')
@@ -16,8 +13,8 @@ export class GetOneBicycleController {
 
   @Get(':id')
   async getOneBicycle(
-    @Param() getBicycleDto: GetBicycleByIdRequestDto,
-  ): Promise<GetBicycleDto> {
+    @Param() getBicycleDto: BicycleRequestDto,
+  ): Promise<BicycleResponseDto> {
     const id = this.bicyclemapper.fromDto(getBicycleDto);
 
     const bicycle = await this.getBicycleUseCase.execute(id);

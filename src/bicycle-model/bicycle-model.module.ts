@@ -3,21 +3,16 @@ import {
   BicycleModelMapper,
   CreateBicycleModelMapper,
   DrizzleBicycleModelMapper,
-} from './create-bicycle_model.mapper';
-import { BicycleModelRepository } from './bicycle_model.repository';
+} from './create-bicycle-model.mapper';
+import { BicycleModelRepository } from './bicycle-model.repository';
 import { CreateBicycleModelUseCase } from './usecases/create-bicycle_model-usecase';
 import { CreateBicycleModelController } from './controllers/create-bicycle_model.controller';
 import { GetAllBicycleModelController } from './controllers/get-bicycles_models.controller';
 import { GetAllBicycleModelsUseCase } from './usecases/get-all-bicycles_models.usecase';
-import { GetOneBicycleModelsUseCase } from './usecases/get-bicycle_model.usecase';
-import { GetOneBicycleModelController } from './controllers/get-bicycle_model.controller';
+import { BrandModule } from 'src/brand/brand.module';
 
 @Module({
-  controllers: [
-    CreateBicycleModelController,
-    GetAllBicycleModelController,
-    GetOneBicycleModelController,
-  ],
+  controllers: [CreateBicycleModelController, GetAllBicycleModelController],
   providers: [
     CreateBicycleModelMapper,
     BicycleModelRepository,
@@ -25,8 +20,8 @@ import { GetOneBicycleModelController } from './controllers/get-bicycle_model.co
     GetAllBicycleModelsUseCase,
     DrizzleBicycleModelMapper,
     BicycleModelMapper,
-    GetOneBicycleModelsUseCase,
   ],
-  exports: [BicycleModelRepository],
+  exports: [BicycleModelRepository, DrizzleBicycleModelMapper],
+  imports: [BrandModule],
 })
 export class BicycleModelModule {}

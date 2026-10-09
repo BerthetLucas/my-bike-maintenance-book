@@ -4,10 +4,11 @@ import { InjectDb } from 'src/db/db.provider';
 import {
   CreateBicycleModelMapper,
   DrizzleBicycleModelMapper,
-} from './create-bicycle_model.mapper';
-import { BicycleModel, NewBicycleModel } from './bicycle.model';
-import { bicycleModel } from 'src/db/schema';
+} from './create-bicycle-model.mapper';
+import { BicycleModel } from './bicycle.model';
+import { bicycleModel, brand } from 'src/db/schema';
 import { eq } from 'drizzle-orm';
+import { NewBicycleModel } from './new-bicycle-model.model';
 
 @Injectable()
 export class BicycleModelRepository {
@@ -24,19 +25,14 @@ export class BicycleModelRepository {
   }
 
   async getAll(): Promise<BicycleModel[]> {
-    const allModels = await this.db.select().from(bicycleModel);
-
-    const models = allModels.map((m) => this.dbMapper.toDomain(m));
-
-    return models;
-  }
-
-  async getById(id: string): Promise<BicycleModel> {
-    const [modelRow] = await this.db
-      .select()
+    const rows = await this.db
+      .select({
+        model: bicycleModel,
+        brand,
+      })
       .from(bicycleModel)
-      .where(eq(bicycleModel.id, id));
+      .innerJoin(brand, eq(bicycleModel.brandId, brand.id));
 
-    return this.dbMapper.toDomain(modelRow);
+    return rows.map((r) => this.dbMapper.toDomain(r));
   }
 }

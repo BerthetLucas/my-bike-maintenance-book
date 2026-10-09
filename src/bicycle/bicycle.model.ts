@@ -1,20 +1,22 @@
-export interface Bicycle {
+import { BicycleModel } from '../bicycle-model/bicycle.model';
+
+interface BicycleConstructorParams {
   id: string;
   name: string;
   isMarked: boolean;
-  modelId: string;
+  model: BicycleModel;
 }
 
-export interface BicycleWithModel {
+export class Bicycle {
   id: string;
   name: string;
   isMarked: boolean;
-  modelName: string;
-  modelId: string;
-}
+  model: BicycleModel;
 
-export interface NewBicycle {
-  name: string;
-  isMarked: boolean;
-  modelId: string;
+  constructor({ id, name, isMarked, model }: BicycleConstructorParams) {
+    this.id = id;
+    this.name = name;
+    this.isMarked = isMarked;
+    this.model = model;
+  }
 }
