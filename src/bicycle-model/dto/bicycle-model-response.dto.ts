@@ -12,10 +12,3 @@ export class BicycleModelResponseDto {
   @IsNotEmpty()
   brandName!: string;
 }
-
-export class BicycleModelRequestDto {
-  @IsUUID()
-  @IsString()
-  @IsNotEmpty()
-  id!: string;
-}

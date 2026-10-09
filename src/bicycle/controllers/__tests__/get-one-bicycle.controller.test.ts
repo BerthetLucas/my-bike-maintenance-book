@@ -2,12 +2,9 @@ import { Test } from '@nestjs/testing';
 import { GetOneBicycleController } from '../get-one-bicycle.controller';
 import { vi } from 'vitest';
 import { GetBicycleUseCase } from 'src/bicycle/usecases/get-bicycle.usecase';
-import { BicycleMapper } from 'src/bicycle/bicycle.mapper';
-
-import {
-  BicycleRequestDto,
-  BicycleResponseDto,
-} from 'src/bicycle/dto/get-bicycle.dto';
+import { BicycleRequestDto } from 'src/bicycle/dto/bicycle-request.dto';
+import { BicycleResponseDto } from 'src/bicycle/dto/bicycle-response.dto';
+import { BicycleMapper } from 'src/bicycle/mappers/bicycle.mapper';
 
 describe('GetOneBicycleController', () => {
   let controller: GetOneBicycleController;

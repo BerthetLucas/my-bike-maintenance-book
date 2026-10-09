@@ -1,8 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
-import { BicycleModelMapper } from '../create-bicycle-model.mapper';
-
 import { GetAllBicycleModelsUseCase } from '../usecases/get-all-bicycles_models.usecase';
-import { BicycleModelResponseDto } from '../dto/get-bicycle-model.dto';
+import { BicycleModelResponseDto } from '../dto/bicycle-model-response.dto';
+import { BicycleModelMapper } from '../mappers/bicycle-model.mapper';
 
 @Controller('bicycles-models')
 export class GetAllBicycleModelController {

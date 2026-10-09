@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { CreateBicycleMapper } from '../bicycle.mapper';
 import { CreateBicycleDto } from '../dto/create-bicycle.dto';
 import { CreateBicycleUseCase } from '../usecases/create-bicycle.usecase';
+import { CreateBicycleMapper } from '../mappers/create-bicycle.mapper';
 
 @Controller('bicycles')
 export class CreateBicycleController {

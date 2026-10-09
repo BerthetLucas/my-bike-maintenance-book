@@ -1,6 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-export class GetBrandResponseDto {
+export class BrandResponseDto {
   @IsUUID()
   id!: string;
 

@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsString, IsNotEmpty, IsUUID, IsBoolean } from 'class-validator';
 
 export class BicycleResponseDto {
   @IsString()
@@ -18,11 +18,4 @@ export class BicycleResponseDto {
 
   @IsString()
   brandName!: string;
-}
-
-export class BicycleRequestDto {
-  @IsUUID()
-  @IsString()
-  @IsNotEmpty()
-  id!: string;
 }
