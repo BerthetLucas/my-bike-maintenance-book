@@ -1,45 +1,59 @@
 import { bicycle, bicycleModel, brand } from 'src/db/schema';
 import request from 'supertest';
-import { createBicycleFixture } from '../../../../test/fixtures/create-bicycle-fixtures';
-import { createBrandFixtures } from '../../../../test/fixtures/create-brand-fixtures';
-import { createBicycleModelFixture } from '../../../../test/fixtures/create-bicycle-model-fixtures';
+import { createDrizzleBrandFixtures } from '../../../../test/fixtures/create-drizzle-brand-fixtures';
 import { getTestContext, type TestContext } from './get-test-app.test-utils';
+import { createDrizzleBicycleModelFixture } from '../../../../test/fixtures/create-bicycle-model-fixtures';
+import { createDrizzleBicycleFixture } from '../../../../test/fixtures/create-bicycle-fixtures';
 
 describe('Get one Bicycle integration test', () => {
   let ctx: TestContext;
-
-  const brandMock = createBrandFixtures();
-  const modelMock = createBicycleModelFixture(brandMock);
-  const bicycleMock = createBicycleFixture(modelMock);
 
   beforeAll(async () => {
     ctx = await getTestContext();
   });
 
-  beforeEach(async () => {
-    await ctx.db.insert(brand).values(brandMock);
-    await ctx.db.insert(bicycleModel).values(modelMock);
-    await ctx.db.insert(bicycle).values(bicycleMock);
-  });
-
   afterEach(async () => {
-    await ctx.db.delete(bicycle);
-    await ctx.db.delete(bicycleModel);
-    await ctx.db.delete(brand);
+    await ctx.dropTables();
   });
 
   it(`/GET bicycles`, async () => {
+    const brandId = '100690fb-799f-4fe9-ad71-ad355cd929c2';
+    const modelId = '5f038a44-28fb-4d5b-b8a4-7d2f80e7beb6';
+    const bicycleId = '5f76d2b7-beb9-4c01-9c8d-870df39c4641';
+
+    await ctx.db.insert(brand).values(
+      createDrizzleBrandFixtures({
+        id: brandId,
+        name: 'Decathlon',
+      }),
+    );
+
+    await ctx.db.insert(bicycleModel).values(
+      createDrizzleBicycleModelFixture({
+        id: modelId,
+        brandId,
+        name: 'Rockridder 2000',
+      }),
+    );
+    await ctx.db.insert(bicycle).values(
+      createDrizzleBicycleFixture({
+        id: bicycleId,
+        name: 'Mon vélo du dimanche',
+        isMarked: true,
+      }),
+    );
+
     const response = await request(ctx.app.getHttpServer()).get(
-      '/bicycles/33333333-3333-4333-8333-333333333333',
+      `/bicycles/${bicycleId}`,
     );
 
     expect(response.status).toStrictEqual(200);
     expect(response.body).toStrictEqual({
-      id: '33333333-3333-4333-8333-333333333333',
-      name: 'myBike',
+      id: bicycleId,
+      name: 'Mon vélo du dimanche',
       isMarked: true,
-      modelName: 'my-model',
-      brandName: 'my-brand',
+      modelName: 'Rockridder 2000',
+      brandName: 'Decathlon',
     });
   });
 

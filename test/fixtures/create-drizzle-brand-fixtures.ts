@@ -1,6 +1,6 @@
 import { DrizzleBrand } from 'src/db/schema';
 
-export function createBrandFixtures(
+export function createDrizzleBrandFixtures(
   overrides: Partial<DrizzleBrand> = {},
 ): DrizzleBrand {
   return {

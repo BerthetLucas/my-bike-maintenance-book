@@ -1,16 +1,16 @@
 import { bicycle, bicycleModel, brand } from 'src/db/schema';
 import request from 'supertest';
-import { createBicycleFixture } from '../../../../test/fixtures/create-bicycle-fixtures';
-import { createBrandFixtures } from '../../../../test/fixtures/create-brand-fixtures';
-import { createBicycleModelFixture } from '../../../../test/fixtures/create-bicycle-model-fixtures';
+import { createDrizzleBicycleFixture } from '../../../../test/fixtures/create-bicycle-fixtures';
+import { createDrizzleBrandFixtures } from '../../../../test/fixtures/create-drizzle-brand-fixtures';
+import { createDrizzleBicycleModelFixture } from '../../../../test/fixtures/create-bicycle-model-fixtures';
 import { getTestContext, TestContext } from './get-test-app.test-utils';
 
 describe('Get All Bicycle integration test', () => {
   let ctx: TestContext;
 
-  const brandMock = createBrandFixtures();
-  const modelMock = createBicycleModelFixture(brandMock);
-  const bicycleMock = createBicycleFixture(modelMock);
+  const brandMock = createDrizzleBrandFixtures();
+  const modelMock = createDrizzleBicycleModelFixture(brandMock);
+  const bicycleMock = createDrizzleBicycleFixture(modelMock);
 
   beforeAll(async () => {
     ctx = await getTestContext();
@@ -23,9 +23,7 @@ describe('Get All Bicycle integration test', () => {
   });
 
   afterEach(async () => {
-    await ctx.db.delete(bicycle);
-    await ctx.db.delete(bicycleModel);
-    await ctx.db.delete(brand);
+    await ctx.dropTables();
   });
 
   it(`/GET bicycles`, async () => {
