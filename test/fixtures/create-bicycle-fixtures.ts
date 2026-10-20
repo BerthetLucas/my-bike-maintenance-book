@@ -1,11 +1,12 @@
 import { DrizzleBicycle } from 'src/db/schema';
 import { createDrizzleBicycleModelFixture } from './create-bicycle-model-fixtures';
+import { randomUUID } from 'crypto';
 
 export function createDrizzleBicycleFixture(
   overrides?: Partial<DrizzleBicycle>,
 ): DrizzleBicycle {
   return {
-    id: '33333333-3333-4333-8333-333333333333',
+    id: randomUUID(),
     name: 'myBike',
     isMarked: true,
     modelId: createDrizzleBicycleModelFixture().id,
