@@ -7,6 +7,6 @@ export class GetAllBicyclesUseCase {
   constructor(private readonly bicycleRepository: BicycleRepository) {}
 
   async execute(): Promise<Bicycle[]> {
-    return await this.bicycleRepository.getAll();
+    return await this.bicycleRepository.getAllOrderedByName();
   }
 }

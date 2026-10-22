@@ -2,6 +2,8 @@ import request from 'supertest';
 import { dropAllTables } from '../../../../test/drop-all-tables';
 import { createTestBicycle } from '../../../../test/fixtures/create-test-bicycle';
 import { getTestContext, TestContext } from './get-test-app.test-utils';
+import { randomUUID } from 'node:crypto';
+import { BicycleResponseDto } from 'src/bicycle/dto/bicycle-response.dto';
 
 describe('Get All Bicycle integration test', () => {
   let ctx: TestContext;
@@ -15,36 +17,99 @@ describe('Get All Bicycle integration test', () => {
   });
 
   it(`/GET bicycles`, async () => {
-    const {
-      bicycleMock: firstBike,
-      modelMock: firstBikeModel,
-      brandMock: firstBikeBrand,
-    } = await createTestBicycle({ db: ctx.db });
+    const bicycleId = randomUUID();
+    const bicycleIdBis = randomUUID();
 
-    const {
-      bicycleMock: secondBike,
-      modelMock: secondBikeModel,
-      brandMock: secondBikeBrand,
-    } = await createTestBicycle({ db: ctx.db });
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        id: bicycleIdBis,
+        name: 'Mon vélo du samedi',
+        isMarked: false,
+      },
+      modelOverrides: {
+        name: 'Rockridder 2001',
+      },
+      brandOverrides: {
+        name: 'Sport 2000',
+      },
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        id: bicycleId,
+        name: 'Mon vélo du dimanche',
+        isMarked: true,
+      },
+      modelOverrides: {
+        name: 'Rockridder 2000',
+      },
+      brandOverrides: {
+        name: 'Decathlon',
+      },
+    });
 
     const response = await request(ctx.app.getHttpServer()).get('/bicycles');
 
     expect(response.status).toStrictEqual(200);
-    expect(response.body).toStrictEqual([
-      {
-        id: firstBike.id,
-        name: firstBike.name,
-        isMarked: firstBike.isMarked,
-        modelName: firstBikeModel.name,
-        brandName: firstBikeBrand.name,
+    expect(response.body).toHaveLength(2);
+
+    expect(response.body).toContainEqual({
+      id: bicycleId,
+      name: 'Mon vélo du dimanche',
+      isMarked: true,
+      modelName: 'Rockridder 2000',
+      brandName: 'Decathlon',
+    });
+
+    expect(response.body).toContainEqual({
+      id: bicycleIdBis,
+      name: 'Mon vélo du samedi',
+      isMarked: false,
+      modelName: 'Rockridder 2001',
+      brandName: 'Sport 2000',
+    });
+  });
+
+  it('sort bicycle by alphabetical order', async () => {
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'D',
       },
-      {
-        id: secondBike.id,
-        name: secondBike.name,
-        isMarked: secondBike.isMarked,
-        modelName: secondBikeModel.name,
-        brandName: secondBikeBrand.name,
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'B',
       },
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'A',
+      },
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'C',
+      },
+    });
+
+    const response = await request(ctx.app.getHttpServer()).get('/bicycles');
+
+    expect(response.status).toStrictEqual(200);
+
+    expect((response.body as BicycleResponseDto[]).map((b) => b.name)).toEqual([
+      'A',
+      'B',
+      'C',
+      'D',
     ]);
   });
 

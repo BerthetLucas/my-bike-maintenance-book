@@ -26,7 +26,7 @@ export class BicycleRepository {
     await this.db.insert(bicycleTable).values(insertBicycle);
   }
 
-  async getAll(): Promise<Bicycle[]> {
+  async getAllOrderedByName(): Promise<Bicycle[]> {
     const bicyclesRows = await this.db
       .select({
         bicycle: bicycleTable,
@@ -35,7 +35,8 @@ export class BicycleRepository {
       })
       .from(bicycleTable)
       .innerJoin(bicycleModel, eq(bicycleTable.modelId, bicycleModel.id))
-      .innerJoin(brandTable, eq(bicycleModel.brandId, brandTable.id));
+      .innerJoin(brandTable, eq(bicycleModel.brandId, brandTable.id))
+      .orderBy(bicycleTable.name);
 
     return bicyclesRows.map((b) => this.bicycleMapper.toDomain(b));
   }

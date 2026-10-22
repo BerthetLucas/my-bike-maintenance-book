@@ -23,11 +23,7 @@ export async function createTestBicycle({
   bicycleOverrides,
   modelOverrides,
   brandOverrides,
-}: CreateTestBicycleParams): Promise<{
-  bicycleMock: DrizzleBicycle;
-  modelMock: DrizzleBicycleModel;
-  brandMock: DrizzleBrand;
-}> {
+}: CreateTestBicycleParams): Promise<void> {
   const brandMock = createDrizzleBrandFixtures({ ...brandOverrides });
   const modelMock = createDrizzleBicycleModelFixture({
     brandId: brandMock.id,
@@ -41,6 +37,4 @@ export async function createTestBicycle({
   await db.insert(brand).values(brandMock);
   await db.insert(bicycleModel).values(modelMock);
   await db.insert(bicycle).values(bicycleMock);
-
-  return { bicycleMock, modelMock, brandMock };
 }
