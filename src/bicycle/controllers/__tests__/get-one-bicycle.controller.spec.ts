@@ -1,9 +1,8 @@
-import { bicycle, bicycleModel, brand } from 'src/db/schema';
 import request from 'supertest';
-import { createDrizzleBrandFixtures } from '../../../../test/fixtures/create-drizzle-brand-fixtures';
 import { getTestContext, type TestContext } from './get-test-app.test-utils';
-import { createDrizzleBicycleModelFixture } from '../../../../test/fixtures/create-bicycle-model-fixtures';
-import { createDrizzleBicycleFixture } from '../../../../test/fixtures/create-bicycle-fixtures';
+import { dropAllTables } from '../../../../test/drop-all-tables';
+import { createTestBicycle } from '../../../../test/fixtures/create-test-bicycle';
+import { randomUUID } from 'node:crypto';
 
 describe('Get one Bicycle integration test', () => {
   let ctx: TestContext;
@@ -13,35 +12,26 @@ describe('Get one Bicycle integration test', () => {
   });
 
   afterEach(async () => {
-    await ctx.dropTables();
+    await dropAllTables(ctx.db);
   });
 
   it(`/GET bicycles`, async () => {
-    const brandId = '100690fb-799f-4fe9-ad71-ad355cd929c2';
-    const modelId = '5f038a44-28fb-4d5b-b8a4-7d2f80e7beb6';
-    const bicycleId = '5f76d2b7-beb9-4c01-9c8d-870df39c4641';
+    const bicycleId = randomUUID();
 
-    await ctx.db.insert(brand).values(
-      createDrizzleBrandFixtures({
-        id: brandId,
-        name: 'Decathlon',
-      }),
-    );
-
-    await ctx.db.insert(bicycleModel).values(
-      createDrizzleBicycleModelFixture({
-        id: modelId,
-        brandId,
-        name: 'Rockridder 2000',
-      }),
-    );
-    await ctx.db.insert(bicycle).values(
-      createDrizzleBicycleFixture({
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
         id: bicycleId,
         name: 'Mon vélo du dimanche',
         isMarked: true,
-      }),
-    );
+      },
+      modelOverrides: {
+        name: 'Rockridder 2000',
+      },
+      brandOverrides: {
+        name: 'Decathlon',
+      },
+    });
 
     const response = await request(ctx.app.getHttpServer()).get(
       `/bicycles/${bicycleId}`,

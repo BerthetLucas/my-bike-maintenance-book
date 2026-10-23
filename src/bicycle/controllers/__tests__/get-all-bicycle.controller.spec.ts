@@ -1,43 +1,115 @@
-import { bicycle, bicycleModel, brand } from 'src/db/schema';
 import request from 'supertest';
-import { createDrizzleBicycleFixture } from '../../../../test/fixtures/create-bicycle-fixtures';
-import { createDrizzleBrandFixtures } from '../../../../test/fixtures/create-drizzle-brand-fixtures';
-import { createDrizzleBicycleModelFixture } from '../../../../test/fixtures/create-bicycle-model-fixtures';
+import { dropAllTables } from '../../../../test/drop-all-tables';
+import { createTestBicycle } from '../../../../test/fixtures/create-test-bicycle';
 import { getTestContext, TestContext } from './get-test-app.test-utils';
+import { randomUUID } from 'node:crypto';
+import { BicycleResponseDto } from 'src/bicycle/dto/bicycle-response.dto';
 
 describe('Get All Bicycle integration test', () => {
   let ctx: TestContext;
-
-  const brandMock = createDrizzleBrandFixtures();
-  const modelMock = createDrizzleBicycleModelFixture(brandMock);
-  const bicycleMock = createDrizzleBicycleFixture(modelMock);
 
   beforeAll(async () => {
     ctx = await getTestContext();
   });
 
-  beforeEach(async () => {
-    await ctx.db.insert(brand).values(brandMock);
-    await ctx.db.insert(bicycleModel).values(modelMock);
-    await ctx.db.insert(bicycle).values(bicycleMock);
-  });
-
   afterEach(async () => {
-    await ctx.dropTables();
+    await dropAllTables(ctx.db);
   });
 
   it(`/GET bicycles`, async () => {
+    const bicycleId = randomUUID();
+    const bicycleIdBis = randomUUID();
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        id: bicycleIdBis,
+        name: 'Mon vélo du samedi',
+        isMarked: false,
+      },
+      modelOverrides: {
+        name: 'Rockridder 2001',
+      },
+      brandOverrides: {
+        name: 'Sport 2000',
+      },
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        id: bicycleId,
+        name: 'Mon vélo du dimanche',
+        isMarked: true,
+      },
+      modelOverrides: {
+        name: 'Rockridder 2000',
+      },
+      brandOverrides: {
+        name: 'Decathlon',
+      },
+    });
+
     const response = await request(ctx.app.getHttpServer()).get('/bicycles');
 
     expect(response.status).toStrictEqual(200);
-    expect(response.body).toStrictEqual([
-      {
-        id: '33333333-3333-4333-8333-333333333333',
-        name: 'myBike',
-        isMarked: true,
-        modelName: 'my-model',
-        brandName: 'my-brand',
+    expect(response.body).toHaveLength(2);
+
+    expect(response.body).toContainEqual({
+      id: bicycleId,
+      name: 'Mon vélo du dimanche',
+      isMarked: true,
+      modelName: 'Rockridder 2000',
+      brandName: 'Decathlon',
+    });
+
+    expect(response.body).toContainEqual({
+      id: bicycleIdBis,
+      name: 'Mon vélo du samedi',
+      isMarked: false,
+      modelName: 'Rockridder 2001',
+      brandName: 'Sport 2000',
+    });
+  });
+
+  it('sort bicycle by alphabetical order', async () => {
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'D',
       },
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'B',
+      },
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'A',
+      },
+    });
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        name: 'C',
+      },
+    });
+
+    const response = await request(ctx.app.getHttpServer()).get('/bicycles');
+
+    expect(response.status).toStrictEqual(200);
+
+    expect((response.body as BicycleResponseDto[]).map((b) => b.name)).toEqual([
+      'A',
+      'B',
+      'C',
+      'D',
     ]);
   });
 
