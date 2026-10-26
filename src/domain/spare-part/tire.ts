@@ -1,7 +1,7 @@
 import { BicycleUsecase } from '../bicycle/bicycle-usecase.model';
 import { SpareConstructorParams, SparePart } from './spare-part';
 
-class TireSeason {}
+type TireSeason = 'winter' | 'summer';
 
 interface TireConstructorParams extends SpareConstructorParams {
   recommendedPressure: number;
@@ -15,9 +15,14 @@ export class Tire extends SparePart {
   usecase: BicycleUsecase;
 
   getWarnings() {
-    if (this.getKm() > 1_000) {
+    if (this.season === 'summer' && this.getKm() >= 5_000) {
       return ['Changer le pneu'];
     }
+
+    if (this.season === 'winter' && this.getKm() >= 8_000) {
+      return ['Changer le pneu'];
+    }
+
     return [];
   }
 

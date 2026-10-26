@@ -1,6 +1,5 @@
 import { Brand } from '../../brand/brand.model';
 
-
 export interface BicycleModelConstructorParams {
   id: string;
   name: string;

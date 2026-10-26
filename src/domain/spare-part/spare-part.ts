@@ -15,7 +15,7 @@ export abstract class SparePart {
   abstract getWarnings(): string[];
 
   addKm(km: number) {
-    this.km = km;
+    this.km += km;
   }
 
   getKm(): number {

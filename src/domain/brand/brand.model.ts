@@ -5,6 +5,8 @@ export interface BrandConstructorParams {
   bicycleOnly: boolean;
 }
 
+export type NewBrand = Omit<BrandConstructorParams, 'id'>;
+
 export class Brand {
   id: string;
   name: string;
