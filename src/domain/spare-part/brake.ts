@@ -1,7 +1,8 @@
+import { differenceInYears } from 'date-fns';
 import { BicycleUsecase } from '../bicycle/bicycle-usecase.model';
 import { SpareConstructorParams, SparePart } from './spare-part';
 
-type Wear = 'little' | 'medium' | 'advanced';
+type Wear = 'new' | 'little' | 'medium' | 'advanced';
 
 interface BrakeConstructorParams extends SpareConstructorParams {
   wear: Wear;
@@ -13,6 +14,15 @@ export class Brake extends SparePart {
   usecase: BicycleUsecase;
 
   getWarnings(): string[] {
+    if (
+      differenceInYears(new Date(), this.getmountedAt()) >= 1 ||
+      this.getKm() > 2000
+    ) {
+      return ['Veuillez vérifier les freins'];
+    }
+
+    // TODO: Add other conditions
+
     return [];
   }
 
