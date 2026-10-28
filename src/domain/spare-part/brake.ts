@@ -1,22 +1,24 @@
 import { differenceInYears } from 'date-fns';
-import { BicycleUsecase } from '../bicycle/bicycle-usecase.model';
+import { BicycleUsage } from '../bicycle/bicycle-usage.model';
 import { SpareConstructorParams, SparePart } from './spare-part';
 
 type Wear = 'new' | 'little' | 'medium' | 'advanced';
 
 interface BrakeConstructorParams extends SpareConstructorParams {
   wear: Wear;
-  usecase: BicycleUsecase;
+  usage: BicycleUsage;
 }
 
 export class Brake extends SparePart {
   wear: Wear;
-  usecase: BicycleUsecase;
+  usage: BicycleUsage;
 
   getWarnings(): string[] {
+    const maxKm = this.usage.getBikeType() === 'VTT' ? 1_500 : 3_000;
+
     if (
       differenceInYears(new Date(), this.getmountedAt()) >= 1 ||
-      this.getKm() > 2000
+      this.getKm() > maxKm
     ) {
       return ['Veuillez vérifier les freins'];
     }
@@ -26,9 +28,9 @@ export class Brake extends SparePart {
     return [];
   }
 
-  constructor({ wear, usecase, ...parent }: BrakeConstructorParams) {
+  constructor({ wear, usage, ...parent }: BrakeConstructorParams) {
     super(parent);
     this.wear = wear;
-    this.usecase = usecase;
+    this.usage = usage;
   }
 }
