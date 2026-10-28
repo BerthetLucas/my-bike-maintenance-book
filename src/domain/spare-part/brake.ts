@@ -13,8 +13,18 @@ export class Brake extends SparePart {
   wear: Wear;
   usage: BicycleUsage;
 
+  constructor({ wear, usage, ...parent }: BrakeConstructorParams) {
+    super(parent);
+    this.wear = wear;
+    this.usage = usage;
+  }
+
   getWarnings(): string[] {
     const maxKm = this.usage.getBikeType() === 'VTT' ? 1_500 : 3_000;
+
+    if (this.wear === 'advanced') {
+      return ['Changer les plaquettes de frein'];
+    }
 
     if (
       differenceInYears(new Date(), this.getmountedAt()) >= 1 ||
@@ -23,14 +33,10 @@ export class Brake extends SparePart {
       return ['Veuillez vérifier les freins'];
     }
 
-    // TODO: Add other conditions
+    if (this.wear === 'medium' && this.getKm() > maxKm / 2) {
+      return ['Surveiller l’usure des plaquettes de frein'];
+    }
 
     return [];
-  }
-
-  constructor({ wear, usage, ...parent }: BrakeConstructorParams) {
-    super(parent);
-    this.wear = wear;
-    this.usage = usage;
   }
 }

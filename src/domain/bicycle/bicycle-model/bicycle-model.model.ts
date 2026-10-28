@@ -12,6 +12,10 @@ export class BicycleModel {
   brand: Brand;
 
   constructor({ id, name, brand }: BicycleModelConstructorParams) {
+    if (brand.sparePartOnly) {
+      throw new Error('This brand is for spare part only');
+    }
+
     this.id = id;
     this.name = name;
     this.brand = brand;
