@@ -1,4 +1,4 @@
-import { Bicycle } from '../models/bicycle.model';
+import { Bicycle } from 'src/domain/bicycle/bicycle.model';
 import { BicycleRequestDto } from '../dto/bicycle-request.dto';
 import { BicycleResponseDto } from '../dto/bicycle-response.dto';
 

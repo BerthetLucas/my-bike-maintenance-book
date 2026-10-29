@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { BicycleModel } from '../models/bicycle-model.model';
 import { BicycleModelRepository } from '../bicycle-model.repository';
+import { BicycleModel } from 'src/domain/bicycle/bicycle-model/bicycle-model.model';
 
 @Injectable()
 export class GetAllBicycleModelsUseCase {
