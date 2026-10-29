@@ -45,4 +45,8 @@ export abstract class SparePart {
   getId(): string {
     return this.id;
   }
+
+  getBrand(): Brand {
+    return this.brand;
+  }
 }

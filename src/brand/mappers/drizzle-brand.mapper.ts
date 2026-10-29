@@ -1,5 +1,5 @@
 import { DrizzleBrand } from 'src/db/schema';
-import { Brand } from '../models/brand.model';
+import { Brand } from 'src/domain/brand/brand.model';
 
 export class DrizzleBrandMapper {
   fromDomain(brand: Brand): DrizzleBrand {
@@ -12,11 +12,11 @@ export class DrizzleBrandMapper {
   }
 
   toDomain(brand: DrizzleBrand): Brand {
-    return {
+    return new Brand({
       id: brand.id,
       name: brand.name,
       sparePartOnly: brand.sparePartOnly,
       bicycleOnly: brand.bicycleOnly,
-    };
+    });
   }
 }
