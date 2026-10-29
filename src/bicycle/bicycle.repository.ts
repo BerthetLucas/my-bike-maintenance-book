@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import type { DB } from '../index';
-import type { Bicycle } from './models/bicycle.model';
 import {
   bicycle as bicycleTable,
   bicycleModel,
@@ -11,6 +10,7 @@ import { eq } from 'drizzle-orm';
 import { NewBicycle } from './models/new-bicycle.model';
 import { CreateBicycleMapper } from './mappers/create-bicycle.mapper';
 import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
+import { Bicycle } from 'src/domain/bicycle/bicycle.model';
 
 @Injectable()
 export class BicycleRepository {
