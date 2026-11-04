@@ -1,7 +1,7 @@
 import { BicycleUsage } from '../bicycle/bicycle-usage.model';
 import { SpareConstructorParams, SparePart } from './spare-part';
 
-interface ChainConstructorParams extends SpareConstructorParams {
+export interface ChainConstructorParams extends SpareConstructorParams {
   usage: BicycleUsage;
 }
 

@@ -3,7 +3,7 @@ import { SpareConstructorParams, SparePart } from './spare-part';
 
 type TireSeason = 'winter' | 'summer';
 
-interface TireConstructorParams extends SpareConstructorParams {
+export interface TireConstructorParams extends SpareConstructorParams {
   recommendedPressure: number;
   season: TireSeason;
   usage: BicycleUsage;
@@ -14,6 +14,7 @@ export class Tire extends SparePart {
   season: TireSeason;
   usage: BicycleUsage;
 
+  // TODO: This is full of magic number !!!
   getWarnings() {
     if (
       this.season === 'summer' &&
