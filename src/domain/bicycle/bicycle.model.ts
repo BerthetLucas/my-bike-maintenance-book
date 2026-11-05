@@ -1,5 +1,6 @@
 import { BicycleModel } from './bicycle-model/bicycle-model.model';
 import { SparePart } from '../spare-part/spare-part';
+import { Warning } from '../spare-part/warning';
 
 export interface BicycleConstructorParams {
   id: string;
@@ -34,7 +35,7 @@ export class Bicycle {
     this.spareParts.forEach((sp) => sp.addKm(km));
   }
 
-  getWarnings(): string[] {
+  getWarnings(): Warning[] {
     return this.spareParts.flatMap((sp) => sp.getWarnings());
   }
 }

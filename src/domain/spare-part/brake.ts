@@ -1,6 +1,7 @@
 import { differenceInYears } from 'date-fns';
 import { BicycleUsage } from '../bicycle/bicycle-usage.model';
 import { SpareConstructorParams, SparePart } from './spare-part';
+import { Warning } from './warning';
 
 type Wear = 'new' | 'little' | 'medium' | 'advanced';
 
@@ -19,22 +20,22 @@ export class Brake extends SparePart {
     this.usage = usage;
   }
 
-  getWarnings(): string[] {
+  getWarnings(): Warning[] {
     const maxKm = this.usage.getBikeType() === 'VTT' ? 1_500 : 3_000;
 
     if (this.wear === 'advanced') {
-      return ['Changer les plaquettes de frein'];
+      return [Warning.of('Changer les plaquettes de frein')];
     }
 
     if (
       differenceInYears(new Date(), this.getmountedAt()) >= 1 ||
       this.getKm() > maxKm
     ) {
-      return ['Veuillez vérifier les freins'];
+      return [Warning.of('Veuillez vérifier les freins')];
     }
 
     if (this.wear === 'medium' && this.getKm() > maxKm / 2) {
-      return ['Surveiller l’usure des plaquettes de frein'];
+      return [Warning.of('Surveiller l’usure des plaquettes de frein')];
     }
 
     return [];

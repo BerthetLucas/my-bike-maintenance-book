@@ -1,5 +1,6 @@
 import { BicycleUsage } from 'src/domain/bicycle/bicycle-usage.model';
 import { createTireFixtures } from '../../../../test/fixtures/create-tire-fixtures';
+import { Warning } from '../warning';
 
 describe('tire', () => {
   describe('Given a winter tire', () => {
@@ -7,7 +8,9 @@ describe('tire', () => {
       it('should send an alarm', () => {
         const tire = createTireFixtures({ km: 5000, season: 'winter' });
 
-        expect(tire.getWarnings()).toStrictEqual(['Changer le pneu']);
+        expect(tire.getWarnings()).toStrictEqual([
+          Warning.of('Remplacer le pneu'),
+        ]);
       });
     });
   });
@@ -18,10 +21,12 @@ describe('tire', () => {
         const tire = createTireFixtures({
           km: 3000,
           season: 'summer',
-          usage: new BicycleUsage({ bikeUsage: 'VTT' }),
+          usage: BicycleUsage.VTT,
         });
 
-        expect(tire.getWarnings()).toStrictEqual(['Changer le pneu']);
+        expect(tire.getWarnings()).toStrictEqual([
+          Warning.of('Remplacer le pneu'),
+        ]);
       });
     });
 
@@ -30,10 +35,12 @@ describe('tire', () => {
         const tire = createTireFixtures({
           km: 5000,
           season: 'summer',
-          usage: new BicycleUsage({ bikeUsage: 'Road' }),
+          usage: BicycleUsage.ROAD,
         });
 
-        expect(tire.getWarnings()).toStrictEqual(['Changer le pneu']);
+        expect(tire.getWarnings()).toStrictEqual([
+          Warning.of('Remplacer le pneu'),
+        ]);
       });
     });
   });

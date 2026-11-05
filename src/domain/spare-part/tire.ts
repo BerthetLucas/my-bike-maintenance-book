@@ -1,5 +1,6 @@
 import { BicycleUsage } from '../bicycle/bicycle-usage.model';
 import { SpareConstructorParams, SparePart } from './spare-part';
+import { Warning } from './warning';
 
 type TireSeason = 'winter' | 'summer';
 
@@ -15,13 +16,13 @@ export class Tire extends SparePart {
   usage: BicycleUsage;
 
   // TODO: This is full of magic number !!!
-  getWarnings() {
+  getWarnings(): Warning[] {
     if (
       this.season === 'summer' &&
       this.getKm() >= 3_000 &&
       this.usage.getBikeType() === 'VTT'
     ) {
-      return ['Changer le pneu'];
+      return [Warning.of('Remplacer le pneu')];
     }
 
     if (
@@ -29,11 +30,11 @@ export class Tire extends SparePart {
       this.getKm() >= 5_000 &&
       this.usage.getBikeType() === 'Road'
     ) {
-      return ['Changer le pneu'];
+      return [Warning.of('Remplacer le pneu')];
     }
 
     if (this.season === 'winter' && this.getKm() >= 5_000) {
-      return ['Changer le pneu'];
+      return [Warning.of('Remplacer le pneu')];
     }
 
     return [];
