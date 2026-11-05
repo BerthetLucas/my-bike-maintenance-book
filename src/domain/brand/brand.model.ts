@@ -24,4 +24,20 @@ export class Brand {
     this.sparePartOnly = sparePartOnly;
     this.bicycleOnly = bicycleOnly;
   }
+
+  getBrandId() {
+    return this.id;
+  }
+
+  getBrandName() {
+    return this.name;
+  }
+
+  getIsSparePartOnly() {
+    return this.sparePartOnly;
+  }
+
+  getIsBicycleOnly() {
+    return this.bicycleOnly;
+  }
 }

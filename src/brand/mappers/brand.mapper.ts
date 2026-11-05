@@ -1,4 +1,4 @@
-import { Brand } from '../models/brand.model';
+import { Brand } from 'src/domain/brand/brand.model';
 import { BrandRequestDto } from '../dto/brand-request.dto';
 import { BrandResponseDto } from '../dto/brand-response.dto';
 

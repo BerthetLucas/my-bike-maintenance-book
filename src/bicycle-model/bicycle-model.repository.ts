@@ -3,10 +3,10 @@ import { eq } from 'drizzle-orm';
 import type { DB } from '../index';
 import { InjectDb } from 'src/db/db.provider';
 import { bicycleModel, brand } from 'src/db/schema';
-import { BicycleModel } from './models/bicycle-model.model';
 import { CreateBicycleModelMapper } from './mappers/create-bicycle-model.mapper';
 import { DrizzleBicycleModelMapper } from './mappers/drizzle-bicycle-model.mapper';
 import { NewBicycleModel } from './models/new-bicycle-model.model';
+import { BicycleModel } from 'src/domain/bicycle/bicycle-model/bicycle-model.model';
 
 @Injectable()
 export class BicycleModelRepository {

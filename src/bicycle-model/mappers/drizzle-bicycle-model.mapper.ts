@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Brand } from 'src/brand/models/brand.model';
+
 import { DrizzleBicycleModel, DrizzleBrand } from 'src/db/schema';
-import { BicycleModel } from '../models/bicycle-model.model';
+import { BicycleModel } from 'src/domain/bicycle/bicycle-model/bicycle-model.model';
+import { Brand } from 'src/domain/brand/brand.model';
 
 @Injectable()
 export class DrizzleBicycleModelMapper {

@@ -4,8 +4,8 @@ import {
   DrizzleBrand,
   DrizzleBicycleModel,
 } from 'src/db/schema';
-import { Bicycle } from '../models/bicycle.model';
 import { DrizzleBicycleModelMapper } from 'src/bicycle-model/mappers/drizzle-bicycle-model.mapper';
+import { Bicycle } from 'src/domain/bicycle/bicycle.model';
 
 @Injectable()
 export class DrizzleBicycleMapper {
@@ -34,6 +34,7 @@ export class DrizzleBicycleMapper {
       name: bicycle.name,
       isMarked: bicycle.isMarked,
       model: this.modelMapper.toDomain({ model, brand }),
+      spareParts: [],
     });
   }
 }

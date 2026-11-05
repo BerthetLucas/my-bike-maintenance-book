@@ -1,4 +1,4 @@
-import { BicycleModel } from '../models/bicycle-model.model';
+import { BicycleModel } from 'src/domain/bicycle/bicycle-model/bicycle-model.model';
 
 export class BicycleModelMapper {
   toDto(model: BicycleModel) {
