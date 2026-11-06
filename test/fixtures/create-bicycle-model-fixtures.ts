@@ -8,6 +8,7 @@ export function createDrizzleBicycleModelFixture(
   return {
     id: randomUUID(),
     name: 'my-model',
+    usage: 'VTT',
     brandId: createDrizzleBrandFixtures().id,
     ...overrides,
   };

@@ -1,4 +1,5 @@
 import { Brand } from '../brand/brand.model';
+import { Usage } from '../bicycle/bicycle-usage';
 import { Warning } from './warning';
 
 export interface SpareConstructorParams {
@@ -25,7 +26,7 @@ export abstract class SparePart {
     this.brand = brand;
   }
 
-  abstract getWarnings(): Warning[];
+  abstract getWarnings(usage: Usage): Warning[];
 
   addKm(km: number) {
     this.km += km;

@@ -16,6 +16,7 @@ export class DrizzleBicycleModelMapper {
     return new BicycleModel({
       id: model.id,
       name: model.name,
+      usage: model.usage,
       brand: new Brand({
         id: brand.id,
         name: brand.name,

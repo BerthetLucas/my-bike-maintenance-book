@@ -7,6 +7,7 @@ export class CreateBicycleModelMapper {
     return {
       name: model.name,
       brandId: model.brandId,
+      usage: model.usage,
     };
   }
 
@@ -14,6 +15,7 @@ export class CreateBicycleModelMapper {
     return {
       name: model.name,
       brandId: model.brandId,
+      usage: model.usage,
     };
   }
 }
