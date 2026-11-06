@@ -11,6 +11,7 @@ import { BrandModule } from 'src/brand/brand.module';
 import { BicycleMapper } from './mappers/bicycle.mapper';
 import { CreateBicycleMapper } from './mappers/create-bicycle.mapper';
 import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
+import { BicycleListItemMapper } from './mappers/bicycle-list-item.mapper';
 
 @Module({
   controllers: [
@@ -26,6 +27,7 @@ import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
     DrizzleBicycleMapper,
     CreateBicycleMapper,
     BicycleMapper,
+    BicycleListItemMapper,
   ],
   imports: [BicycleModelModule, BrandModule],
 })

@@ -7,6 +7,7 @@ export class CreateBicycleMapper {
     return {
       name: bicycle.name,
       isMarked: bicycle.isMarked,
+      km: bicycle.km,
       modelId: bicycle.modelId,
     };
   }
@@ -15,6 +16,7 @@ export class CreateBicycleMapper {
     return {
       name: bicycle.name,
       isMarked: bicycle.isMarked,
+      km: bicycle.km,
       modelId: bicycle.modelId,
     };
   }

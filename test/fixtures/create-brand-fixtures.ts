@@ -1,6 +1,5 @@
 import { randomUUID } from 'crypto';
-import { BrandConstructorParams } from 'src/brand/models/brand-constructor-params.model';
-import { Brand } from 'src/domain/brand/brand.model';
+import { Brand, BrandConstructorParams } from 'src/domain/brand/brand.model';
 
 export function createBrandFixtures(
   overrides?: Partial<BrandConstructorParams>,
