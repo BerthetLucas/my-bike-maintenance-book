@@ -1,21 +1,16 @@
-import { BicycleUsage } from '../bicycle/bicycle-usage.model';
+import { Usage } from '../bicycle/bicycle-usage';
 import { SpareConstructorParams, SparePart } from './spare-part';
 import { Warning } from './warning';
 
-export interface ChainConstructorParams extends SpareConstructorParams {
-  usage: BicycleUsage;
-}
+export type ChainConstructorParams = SpareConstructorParams;
 
 export class Chain extends SparePart {
-  usage: BicycleUsage;
-
-  constructor({ usage, ...parent }: ChainConstructorParams) {
-    super(parent);
-    this.usage = usage;
+  constructor(params: ChainConstructorParams) {
+    super(params);
   }
 
-  getWarnings(): Warning[] {
-    const maxKm = this.usage.getBikeType() === 'VTT' ? 2_000 : 3_500;
+  getWarnings(usage: Usage): Warning[] {
+    const maxKm = usage === 'VTT' ? 2_000 : 3_500;
 
     if (this.getKm() > maxKm) {
       return [Warning.of('Remplacer la chaîne')];

@@ -41,7 +41,7 @@ export class Bicycle {
   }
 
   getWarnings(): Warning[] {
-    return this.spareParts.flatMap((sp) => sp.getWarnings());
+    return this.spareParts.flatMap((sp) => sp.getWarnings(this.model.usage));
   }
 
   getSpareParts(): SparePart[] {

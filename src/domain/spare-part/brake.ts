@@ -1,5 +1,5 @@
 import { differenceInYears } from 'date-fns';
-import { BicycleUsage } from '../bicycle/bicycle-usage.model';
+import { Usage } from '../bicycle/bicycle-usage';
 import { SpareConstructorParams, SparePart } from './spare-part';
 import { Warning } from './warning';
 
@@ -7,21 +7,18 @@ type Wear = 'new' | 'little' | 'medium' | 'advanced';
 
 interface BrakeConstructorParams extends SpareConstructorParams {
   wear: Wear;
-  usage: BicycleUsage;
 }
 
 export class Brake extends SparePart {
   wear: Wear;
-  usage: BicycleUsage;
 
-  constructor({ wear, usage, ...parent }: BrakeConstructorParams) {
+  constructor({ wear, ...parent }: BrakeConstructorParams) {
     super(parent);
     this.wear = wear;
-    this.usage = usage;
   }
 
-  getWarnings(): Warning[] {
-    const maxKm = this.usage.getBikeType() === 'VTT' ? 1_500 : 3_000;
+  getWarnings(usage: Usage): Warning[] {
+    const maxKm = usage === 'VTT' ? 1_500 : 3_000;
 
     if (this.wear === 'advanced') {
       return [Warning.of('Changer les plaquettes de frein')];

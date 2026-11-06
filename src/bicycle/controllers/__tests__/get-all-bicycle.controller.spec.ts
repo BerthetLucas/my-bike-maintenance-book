@@ -61,6 +61,7 @@ describe('Get All Bicycle integration test', () => {
       isMarked: true,
       modelName: 'Rockridder 2000',
       brandName: 'Decathlon',
+      km: 0,
     });
 
     expect(response.body).toContainEqual({
@@ -69,6 +70,7 @@ describe('Get All Bicycle integration test', () => {
       isMarked: false,
       modelName: 'Rockridder 2001',
       brandName: 'Sport 2000',
+      km: 0,
     });
   });
 

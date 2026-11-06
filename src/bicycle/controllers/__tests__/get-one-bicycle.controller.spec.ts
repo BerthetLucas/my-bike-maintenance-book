@@ -44,6 +44,7 @@ describe('Get one Bicycle integration test', () => {
       isMarked: true,
       modelName: 'Rockridder 2000',
       brandName: 'Decathlon',
+      km: 0,
     });
   });
 
