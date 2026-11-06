@@ -10,6 +10,7 @@ export function createDrizzleBicycleFixture(
     name: 'myBike',
     isMarked: true,
     modelId: createDrizzleBicycleModelFixture().id,
+    km: 0,
     ...overrides,
   };
 }

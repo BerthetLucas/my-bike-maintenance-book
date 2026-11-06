@@ -14,6 +14,7 @@ export class BicycleMapper {
       isMarked: bicycle.isMarked,
       modelName: bicycle.model.name,
       brandName: bicycle.model.brand.name,
+      km: bicycle.km,
     };
   }
 }

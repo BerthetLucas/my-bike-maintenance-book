@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty, IsUUID, IsBoolean } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsUUID,
+  IsBoolean,
+  IsInt,
+} from 'class-validator';
 
 export class BicycleResponseDto {
   @IsString()
@@ -15,6 +21,9 @@ export class BicycleResponseDto {
 
   @IsString()
   modelName!: string;
+
+  @IsInt()
+  km!: number;
 
   @IsString()
   brandName!: string;
