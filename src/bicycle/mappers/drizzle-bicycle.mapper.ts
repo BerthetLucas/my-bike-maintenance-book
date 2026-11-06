@@ -17,6 +17,7 @@ export class DrizzleBicycleMapper {
       name: bicycle.name,
       isMarked: bicycle.isMarked,
       modelId: bicycle.model.id,
+      km: bicycle.km,
     };
   }
 
@@ -34,6 +35,7 @@ export class DrizzleBicycleMapper {
       name: bicycle.name,
       isMarked: bicycle.isMarked,
       model: this.modelMapper.toDomain({ model, brand }),
+      km: bicycle.km,
       spareParts: [],
     });
   }

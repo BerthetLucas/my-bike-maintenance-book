@@ -1,9 +1,10 @@
 import { defineRelations } from 'drizzle-orm';
-import { pgTable, varchar, uuid, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, varchar, uuid, boolean, integer } from 'drizzle-orm/pg-core';
 
 export const bicycle = pgTable('bicycle', {
   id: uuid().primaryKey().defaultRandom(),
   name: varchar().notNull(),
+  km: integer().notNull().default(0),
   isMarked: boolean().notNull().default(false),
   modelId: uuid()
     .references(() => bicycleModel.id)

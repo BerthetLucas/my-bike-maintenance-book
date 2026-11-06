@@ -1,0 +1,1 @@
+ALTER TABLE "bicycle" ALTER COLUMN "km" SET NOT NULL;
