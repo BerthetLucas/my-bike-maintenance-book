@@ -10,6 +10,7 @@ export class BicycleListItemMapper {
       modelName: bicycle.model.name,
       brandName: bicycle.model.brand.name,
       km: bicycle.km,
+      warnings: bicycle.getWarnings(),
     };
   }
 }

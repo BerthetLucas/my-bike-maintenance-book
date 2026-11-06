@@ -36,3 +36,15 @@ Outillage: Prerequis être capable de démarrer une DB (avec les migrations run 
 1. Arrange: Insérer en DB 2 bicycles
 2. Act Faire l'appel GET /bicycles
 3. Assert: le retour http
+
+---
+
+I'm able to create parts and now I have to think of :
+
+-> get Warnings from part from a bike
+-> Limite part number allow on a bike
+-> Update a replace part on a bike
+
+TODO : Add Spare part should be an array so we can create several part in the same time for a bike
+
+TODO: A spare part cannot have a brand that is bycicleonly

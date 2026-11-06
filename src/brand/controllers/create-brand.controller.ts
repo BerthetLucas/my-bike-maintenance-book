@@ -1,13 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateBrandUseCase } from '../usecases/create-brand.usecase';
 import { CreateNewBrandRequestDto } from '../dto/create-new-brand-request.dto';
-import { NewBrandMapper } from '../mappers/new-brand.mapper';
+import { CreateBrandMapper } from '../mappers/create-brand.mapper';
 
 @Controller('brands')
 export class CreateBrandController {
   constructor(
     private readonly usecase: CreateBrandUseCase,
-    private readonly mapper: NewBrandMapper,
+    private readonly mapper: CreateBrandMapper,
   ) {}
 
   @Post()

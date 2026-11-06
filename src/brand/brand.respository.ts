@@ -5,14 +5,14 @@ import { brand } from 'src/db/schema';
 import { eq } from 'drizzle-orm';
 import { NewBrand } from './models/new-brand.model';
 import { DrizzleBrandMapper } from './mappers/drizzle-brand.mapper';
-import { DrizzleNewBrandMapper } from './mappers/drizzle-new-brand.mapper';
+import { CreateBrandMapper } from './mappers/create-brand.mapper';
 import { Brand } from 'src/domain/brand/brand.model';
 
 @Injectable()
 export class BrandRepository {
   constructor(
     @InjectDb() private readonly db: DB,
-    private readonly createBrandMapper: DrizzleNewBrandMapper,
+    private readonly createBrandMapper: CreateBrandMapper,
     private readonly brandMapper: DrizzleBrandMapper,
   ) {}
 

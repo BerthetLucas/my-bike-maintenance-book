@@ -12,6 +12,7 @@ import { BicycleMapper } from './mappers/bicycle.mapper';
 import { CreateBicycleMapper } from './mappers/create-bicycle.mapper';
 import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
 import { BicycleListItemMapper } from './mappers/bicycle-list-item.mapper';
+import { SparePartModule } from 'src/spare-part/spare-part.module';
 
 @Module({
   controllers: [
@@ -29,6 +30,6 @@ import { BicycleListItemMapper } from './mappers/bicycle-list-item.mapper';
     BicycleMapper,
     BicycleListItemMapper,
   ],
-  imports: [BicycleModelModule, BrandModule],
+  imports: [BicycleModelModule, BrandModule, SparePartModule],
 })
 export class BicycleModule {}

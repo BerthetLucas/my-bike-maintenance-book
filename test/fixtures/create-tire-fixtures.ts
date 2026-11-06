@@ -10,7 +10,7 @@ export function createTireFixtures(
     season: 'summer',
     recommendedPressure: 10,
     km: 0,
-    time: new Date(),
+    mountedAt: new Date(),
     brand: createBrandFixtures(),
     ...overrides,
   });

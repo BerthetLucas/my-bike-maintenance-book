@@ -53,10 +53,14 @@ export const sparePartTypeEnum = pgEnum('sparePart_type', [
   'Tire',
 ]);
 
+export const seasonEnum = pgEnum('sparePart_season', ['summer', 'winter']);
+
 export const sparePart = pgTable('sparePart', {
   id: uuid().primaryKey().defaultRandom(),
   type: sparePartTypeEnum().notNull(),
-  mountedAt: date().defaultNow(),
+  mountedAt: date({ mode: 'date' }).defaultNow().notNull(),
+  season: seasonEnum(),
+  recommendedPressure: integer(),
   km: integer().notNull().default(0),
   brandId: uuid()
     .references(() => brand.id)
@@ -66,6 +70,9 @@ export const sparePart = pgTable('sparePart', {
     .notNull(),
 });
 
+export type DrizzleSparePart = typeof sparePart.$inferSelect;
+export type DrizzleNewSparePart = typeof sparePart.$inferInsert;
+
 export const relations = defineRelations(
   { bicycleModel, bicycle, brand, sparePart },
   (r) => ({
@@ -73,6 +80,7 @@ export const relations = defineRelations(
       model: r.one.bicycleModel({
         from: r.bicycle.modelId,
         to: r.bicycleModel.id,
+        optional: false,
       }),
       sparePart: r.many.sparePart(),
     },
@@ -81,6 +89,7 @@ export const relations = defineRelations(
       brand: r.one.brand({
         from: r.bicycleModel.brandId,
         to: r.brand.id,
+        optional: false,
       }),
     },
     brand: {
@@ -91,6 +100,7 @@ export const relations = defineRelations(
       brand: r.one.brand({
         from: r.sparePart.brandId,
         to: r.brand.id,
+        optional: false,
       }),
       bicycle: r.one.bicycle({
         from: r.sparePart.bicycleId,

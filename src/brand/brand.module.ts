@@ -8,8 +8,7 @@ import { GetOneBrandController } from './controllers/get-one.controller';
 import { CreateBrandController } from './controllers/create-brand.controller';
 import { BrandMapper } from './mappers/brand.mapper';
 import { DrizzleBrandMapper } from './mappers/drizzle-brand.mapper';
-import { DrizzleNewBrandMapper } from './mappers/drizzle-new-brand.mapper';
-import { NewBrandMapper } from './mappers/new-brand.mapper';
+import { CreateBrandMapper } from './mappers/create-brand.mapper';
 
 @Module({
   providers: [
@@ -18,8 +17,7 @@ import { NewBrandMapper } from './mappers/new-brand.mapper';
     CreateBrandUseCase,
     BrandRepository,
     BrandMapper,
-    NewBrandMapper,
-    DrizzleNewBrandMapper,
+    CreateBrandMapper,
     DrizzleBrandMapper,
   ],
   controllers: [
@@ -27,6 +25,6 @@ import { NewBrandMapper } from './mappers/new-brand.mapper';
     GetAllBrandController,
     CreateBrandController,
   ],
-  exports: [BrandRepository],
+  exports: [BrandRepository, DrizzleBrandMapper],
 })
 export class BrandModule {}
