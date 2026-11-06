@@ -5,7 +5,7 @@ import { Warning } from './warning';
 export interface SpareConstructorParams {
   id: string;
   km: number;
-  time: Date;
+  mountedAt: Date;
   brand: Brand;
 }
 
@@ -15,14 +15,14 @@ export abstract class SparePart {
   private mountedAt: Date;
   private brand: Brand;
 
-  constructor({ km, id, time, brand }: SpareConstructorParams) {
+  constructor({ km, id, mountedAt, brand }: SpareConstructorParams) {
     if (brand.bicycleOnly) {
       throw new Error('This brand is for bicycle only');
     }
 
     this.km = km;
     this.id = id;
-    this.mountedAt = time;
+    this.mountedAt = mountedAt;
     this.brand = brand;
   }
 

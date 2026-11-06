@@ -1,11 +1,30 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "d9f6dde7-88d2-4c81-92e6-bb01a2eb1e46",
+  "id": "3f733b91-efe1-4d14-aeaf-8866003f8eeb",
   "prevIds": [
-    "21ae048a-2f56-4a35-8c6d-7e6996138199"
+    "6d76b900-218f-4062-aab1-be4b32682f10"
   ],
   "ddl": [
+    {
+      "values": [
+        "VTT",
+        "Road"
+      ],
+      "name": "bicycle_usage",
+      "entityType": "enums",
+      "schema": "public"
+    },
+    {
+      "values": [
+        "Brake",
+        "Chain",
+        "Tire"
+      ],
+      "name": "sparePart_type",
+      "entityType": "enums",
+      "schema": "public"
+    },
     {
       "isRlsEnabled": false,
       "name": "bicycle",
@@ -21,6 +40,12 @@
     {
       "isRlsEnabled": false,
       "name": "brand",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "sparePart",
       "entityType": "tables",
       "schema": "public"
     },
@@ -116,6 +141,19 @@
       "table": "bicycle_model"
     },
     {
+      "type": "bicycle_usage",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "usage",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle_model"
+    },
+    {
       "type": "uuid",
       "typeSchema": null,
       "notNull": true,
@@ -181,6 +219,84 @@
       "table": "brand"
     },
     {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
+      "type": "sparePart_type",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "type",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "mountedAt",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "km",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "brandId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "bicycleId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
       "nameExplicit": false,
       "columns": [
         "modelId"
@@ -215,6 +331,40 @@
       "table": "bicycle_model"
     },
     {
+      "nameExplicit": false,
+      "columns": [
+        "brandId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "brand",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "sparePart_brandId_brand_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "bicycleId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "bicycle",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "sparePart_bicycleId_bicycle_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "sparePart"
+    },
+    {
       "columns": [
         "id"
       ],
@@ -242,6 +392,16 @@
       "name": "brand_pkey",
       "schema": "public",
       "table": "brand",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "sparePart_pkey",
+      "schema": "public",
+      "table": "sparePart",
       "entityType": "pks"
     }
   ],
