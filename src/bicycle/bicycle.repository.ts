@@ -28,6 +28,7 @@ export class BicycleRepository {
           with: { brand: true },
         },
         sparePart: {
+          where: { isMountedOnABicycle: true },
           with: { brand: true },
         },
       },
@@ -51,6 +52,7 @@ export class BicycleRepository {
           with: { brand: true },
         },
         sparePart: {
+          where: { isMountedOnABicycle: true },
           with: { brand: true },
         },
       },
