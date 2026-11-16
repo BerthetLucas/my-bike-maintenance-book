@@ -4,6 +4,7 @@ import { InjectDb } from 'src/db/db.provider';
 import { CreateSparePartMapper } from './mappers/create-spare-part.mapper';
 import { NewSparePart } from './models/new-spare-part.model';
 import { sparePart as sparePartTable } from 'src/db/schema';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class SparePartRepository {
@@ -17,5 +18,19 @@ export class SparePartRepository {
       this.createSparePartMapper.fromDomain(newSparePart);
 
     await this.db.insert(sparePartTable).values(sparePartToInsert);
+  }
+
+  async delete(id: string): Promise<void> {
+    const sparePartToDelete = await this.db.query.sparePart.findFirst({
+      where: { id },
+    });
+
+    if (!sparePartToDelete) {
+      throw new Error('This spare part does not exist');
+    }
+
+    await this.db
+      .delete(sparePartTable)
+      .where(eq(sparePartTable.id, sparePartToDelete.id));
   }
 }
