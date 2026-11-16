@@ -1,11 +1,20 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "030c076a-1e01-4f98-8da9-983f9d5d5b22",
+  "id": "6d76b900-218f-4062-aab1-be4b32682f10",
   "prevIds": [
-    "43e13344-43de-4c3a-bf39-cc81e3f1ac30"
+    "00000000-0000-0000-0000-000000000000"
   ],
   "ddl": [
+    {
+      "values": [
+        "VTT",
+        "Road"
+      ],
+      "name": "bicycle_usage",
+      "entityType": "enums",
+      "schema": "public"
+    },
     {
       "isRlsEnabled": false,
       "name": "bicycle",
@@ -46,6 +55,19 @@
       "generated": null,
       "identity": null,
       "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "km",
       "entityType": "columns",
       "schema": "public",
       "table": "bicycle"
@@ -103,6 +125,19 @@
       "table": "bicycle_model"
     },
     {
+      "type": "bicycle_usage",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "usage",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bicycle_model"
+    },
+    {
       "type": "uuid",
       "typeSchema": null,
       "notNull": true,
@@ -144,7 +179,7 @@
     {
       "type": "boolean",
       "typeSchema": null,
-      "notNull": false,
+      "notNull": true,
       "dimensions": 0,
       "default": null,
       "generated": null,
@@ -157,7 +192,7 @@
     {
       "type": "boolean",
       "typeSchema": null,
-      "notNull": false,
+      "notNull": true,
       "dimensions": 0,
       "default": null,
       "generated": null,

@@ -7,7 +7,7 @@ export function createChainFixture(
 ): Chain {
   return new Chain({
     id: randomUUID(),
-    time: new Date(),
+    mountedAt: new Date(),
     km: 0,
     brand: createBrandFixtures(),
     ...overrides,

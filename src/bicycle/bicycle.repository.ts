@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { DB } from '../index';
-import {
-  bicycle as bicycleTable,
-  bicycleModel,
-  brand as brandTable,
-} from '../db/schema';
+import { bicycle as bicycleTable } from '../db/schema';
 import { InjectDb } from '../db/db.provider';
-import { eq } from 'drizzle-orm';
 import { NewBicycle } from './models/new-bicycle.model';
 import { CreateBicycleMapper } from './mappers/create-bicycle.mapper';
 import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
@@ -27,36 +22,50 @@ export class BicycleRepository {
   }
 
   async getAllOrderedByName(): Promise<Bicycle[]> {
-    const bicyclesRows = await this.db
-      .select({
-        bicycle: bicycleTable,
-        model: bicycleModel,
-        brand: brandTable,
-      })
-      .from(bicycleTable)
-      .innerJoin(bicycleModel, eq(bicycleTable.modelId, bicycleModel.id))
-      .innerJoin(brandTable, eq(bicycleModel.brandId, brandTable.id))
-      .orderBy(bicycleTable.name);
+    const bicyclesRows = await this.db.query.bicycle.findMany({
+      with: {
+        model: {
+          with: { brand: true },
+        },
+        sparePart: {
+          with: { brand: true },
+        },
+      },
+      orderBy: { name: 'asc' },
+    });
 
-    return bicyclesRows.map((b) => this.bicycleMapper.toDomain(b));
+    return bicyclesRows.map((b) =>
+      this.bicycleMapper.toDomain({
+        bicycle: b,
+        model: b.model,
+        brand: b.model.brand,
+        spareParts: b.sparePart,
+      }),
+    );
   }
 
   async getById(id: string): Promise<Bicycle> {
-    const [bicycleRow] = await this.db
-      .select({
-        bicycle: bicycleTable,
-        model: bicycleModel,
-        brand: brandTable,
-      })
-      .from(bicycleTable)
-      .innerJoin(bicycleModel, eq(bicycleTable.modelId, bicycleModel.id))
-      .innerJoin(brandTable, eq(bicycleModel.brandId, brandTable.id))
-      .where(eq(bicycleTable.id, id));
+    const bicycleRow = await this.db.query.bicycle.findFirst({
+      with: {
+        model: {
+          with: { brand: true },
+        },
+        sparePart: {
+          with: { brand: true },
+        },
+      },
+      where: { id },
+    });
 
     if (!bicycleRow) {
       throw new Error('This bicycle id does not exist');
     }
 
-    return this.bicycleMapper.toDomain(bicycleRow);
+    return this.bicycleMapper.toDomain({
+      bicycle: bicycleRow,
+      model: bicycleRow.model,
+      brand: bicycleRow.model.brand,
+      spareParts: bicycleRow.sparePart,
+    });
   }
 }

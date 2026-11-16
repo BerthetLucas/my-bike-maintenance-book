@@ -8,6 +8,7 @@ import { getContainerSetUp } from '../../../../test/get-test-container-setup';
 import { AppModule } from '../../../app.module';
 import { DB_PROVIDER } from '../../../db/db.provider';
 import { Test } from '@nestjs/testing';
+import { relations } from 'src/db/schema';
 
 export interface TestContext {
   app: INestApplication<App>;
@@ -18,7 +19,7 @@ export interface TestContext {
 export async function getTestContext(): Promise<TestContext> {
   const container = await getContainerSetUp();
   const pool = getPool(container);
-  const db = drizzle({ client: pool });
+  const db = drizzle({ client: pool, relations });
 
   await migrate(db, { migrationsFolder: './drizzle' });
 
