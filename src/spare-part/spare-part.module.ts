@@ -5,14 +5,17 @@ import { CreateSparePartUseCase } from './usecases/create-spare-part.usecase';
 import { SparePartRepository } from './spare-part.repository';
 import { DrizzleSparePartMapper } from './mappers/drizzle-spare-part-mapper';
 import { BrandModule } from 'src/brand/brand.module';
+import { DeleteSparePartController } from './controllers/delete-spare-part.controller';
+import { DeleteSparePartUseCase } from './usecases/delete-spare-part.usecase';
 
 @Module({
-  controllers: [CreateSparePartController],
+  controllers: [CreateSparePartController, DeleteSparePartController],
   providers: [
     CreateSparePartMapper,
     CreateSparePartUseCase,
     SparePartRepository,
     DrizzleSparePartMapper,
+    DeleteSparePartUseCase,
   ],
   imports: [BrandModule],
   exports: [DrizzleSparePartMapper],

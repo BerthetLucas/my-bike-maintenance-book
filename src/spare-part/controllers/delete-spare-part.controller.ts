@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Param } from '@nestjs/common';
 import { DeleteSparePartUseCase } from '../usecases/delete-spare-part.usecase';
 
 @Controller('spare-parts')
-export class CreateSparePartController {
+export class DeleteSparePartController {
   constructor(private readonly usecase: DeleteSparePartUseCase) {}
 
   @Delete()
