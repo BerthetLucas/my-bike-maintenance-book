@@ -20,17 +20,18 @@ export class SparePartRepository {
     await this.db.insert(sparePartTable).values(sparePartToInsert);
   }
 
-  async delete(id: string): Promise<void> {
-    const sparePartToDelete = await this.db.query.sparePart.findFirst({
+  async detacheSparePartFromBicycle(id: string): Promise<void> {
+    const sparePartToDetached = await this.db.query.sparePart.findFirst({
       where: { id },
     });
 
-    if (!sparePartToDelete) {
+    if (!sparePartToDetached) {
       throw new Error('This spare part does not exist');
     }
 
     await this.db
-      .delete(sparePartTable)
-      .where(eq(sparePartTable.id, sparePartToDelete.id));
+      .update(sparePartTable)
+      .set({ isMountedOnABicycle: false })
+      .where(eq(sparePartTable.id, sparePartToDetached.id));
   }
 }

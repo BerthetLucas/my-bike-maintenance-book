@@ -4,4 +4,5 @@ export interface NewSparePart {
   km: number;
   brandId: string;
   bicycleId: string;
+  isMountedOnABicycle: boolean;
 }
