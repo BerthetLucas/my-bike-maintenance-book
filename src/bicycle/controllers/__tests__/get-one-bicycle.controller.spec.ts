@@ -1,8 +1,12 @@
 import request from 'supertest';
-import { getTestContext, type TestContext } from './get-test-app.test-utils';
+
 import { dropAllTables } from '../../../../test/drop-all-tables';
 import { createTestBicycle } from '../../../../test/fixtures/create-test-bicycle';
 import { randomUUID } from 'node:crypto';
+import {
+  getTestContext,
+  TestContext,
+} from '../../../../test/get-test-app.test-utils';
 
 describe('Get one Bicycle integration test', () => {
   let ctx: TestContext;

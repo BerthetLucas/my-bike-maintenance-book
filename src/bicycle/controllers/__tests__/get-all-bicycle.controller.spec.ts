@@ -1,9 +1,12 @@
 import request from 'supertest';
 import { dropAllTables } from '../../../../test/drop-all-tables';
 import { createTestBicycle } from '../../../../test/fixtures/create-test-bicycle';
-import { getTestContext, TestContext } from './get-test-app.test-utils';
 import { randomUUID } from 'node:crypto';
 import { BicycleResponseDto } from 'src/bicycle/dto/bicycle-response.dto';
+import {
+  TestContext,
+  getTestContext,
+} from '../../../../test/get-test-app.test-utils';
 
 describe('Get All Bicycle integration test', () => {
   let ctx: TestContext;
@@ -62,6 +65,7 @@ describe('Get All Bicycle integration test', () => {
       modelName: 'Rockridder 2000',
       brandName: 'Decathlon',
       km: 0,
+      warnings: [],
     });
 
     expect(response.body).toContainEqual({
@@ -71,6 +75,7 @@ describe('Get All Bicycle integration test', () => {
       modelName: 'Rockridder 2001',
       brandName: 'Sport 2000',
       km: 0,
+      warnings: [],
     });
   });
 
@@ -113,6 +118,44 @@ describe('Get All Bicycle integration test', () => {
       'C',
       'D',
     ]);
+  });
+
+  it('should show an alarm if a bike spare part need maintenance', async () => {
+    const bicycleId = randomUUID();
+
+    await createTestBicycle({
+      db: ctx.db,
+      bicycleOverrides: {
+        id: bicycleId,
+        name: 'Mon vélo du dimanche',
+        isMarked: true,
+      },
+      modelOverrides: {
+        name: 'Rockridder 2000',
+      },
+      brandOverrides: {
+        name: 'Decathlon',
+      },
+      sparePartOverrides: {
+        type: 'Tire',
+        season: 'winter',
+        recommendedPressure: 2,
+        km: 5000,
+        isMountedOnABicycle: true,
+      },
+    });
+
+    const response = await request(ctx.app.getHttpServer()).get('/bicycles');
+
+    expect(response.body).toContainEqual({
+      id: bicycleId,
+      name: 'Mon vélo du dimanche',
+      isMarked: true,
+      modelName: 'Rockridder 2000',
+      brandName: 'Decathlon',
+      km: 0,
+      warnings: [{ message: 'Remplacer le pneu' }],
+    });
   });
 
   afterAll(async () => {
