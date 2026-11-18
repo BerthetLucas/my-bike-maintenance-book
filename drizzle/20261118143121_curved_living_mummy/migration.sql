@@ -1,0 +1,1 @@
+ALTER TABLE "sparePart" ADD COLUMN "isMountedOnABicycle" boolean NOT NULL;
