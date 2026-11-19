@@ -1,14 +1,14 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
-import { getPool } from '../../../../test/get-pool-setup';
-import { DB } from '../../../index';
 import { INestApplication } from '@nestjs/common';
 import { App } from 'supertest/types';
-import { getContainerSetUp } from '../../../../test/get-test-container-setup';
-import { AppModule } from '../../../app.module';
-import { DB_PROVIDER } from '../../../db/db.provider';
 import { Test } from '@nestjs/testing';
 import { relations } from 'src/db/schema';
+import { getContainerSetUp } from './get-test-container-setup';
+import { DB } from 'src';
+import { AppModule } from 'src/app.module';
+import { DB_PROVIDER } from 'src/db/db.provider';
+import { getPool } from './get-pool-setup';
 
 export interface TestContext {
   app: INestApplication<App>;

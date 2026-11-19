@@ -2,6 +2,7 @@ import { Usage } from '../bicycle/bicycle-usage';
 import { SpareConstructorParams, SparePart } from './spare-part';
 import { Warning } from './warning';
 
+// Voir pour usage aussi sur cette pièce et comparer avec le vélo.
 type TireSeason = 'winter' | 'summer';
 
 export interface TireConstructorParams extends SpareConstructorParams {

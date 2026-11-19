@@ -47,4 +47,6 @@ export class Bicycle {
   getSpareParts(): SparePart[] {
     return this.spareParts;
   }
+
+  // Passer uniquement ici pour modifier les spare parts. 
 }

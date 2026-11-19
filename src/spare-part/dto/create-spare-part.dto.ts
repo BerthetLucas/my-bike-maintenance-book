@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsDateString,
   IsIn,
   IsInt,
@@ -25,4 +26,7 @@ export class CreateSparePartDto {
   @IsUUID()
   @IsNotEmpty()
   bicycleId!: string;
+
+  @IsBoolean()
+  isMountedOnABicycle!: boolean;
 }

@@ -12,6 +12,7 @@ export class CreateSparePartMapper {
       km: createSparePartDto.km,
       brandId: createSparePartDto.brandId,
       bicycleId: createSparePartDto.bicycleId,
+      isMountedOnABicycle: createSparePartDto.isMountedOnABicycle,
     };
   }
 
@@ -22,6 +23,7 @@ export class CreateSparePartMapper {
       km: newSparePart.km,
       brandId: newSparePart.brandId,
       bicycleId: newSparePart.bicycleId,
+      isMountedOnABicycle: newSparePart.isMountedOnABicycle,
     };
   }
 }

@@ -68,6 +68,7 @@ export const sparePart = pgTable('sparePart', {
   bicycleId: uuid()
     .references(() => bicycle.id)
     .notNull(),
+  isMountedOnABicycle: boolean().notNull(),
 });
 
 export type DrizzleSparePart = typeof sparePart.$inferSelect;
