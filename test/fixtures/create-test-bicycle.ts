@@ -8,8 +8,8 @@ import {
   DrizzleSparePart,
   sparePart,
 } from 'src/db/schema';
-import { createDrizzleBicycleFixture } from './create-bicycle-fixtures';
-import { createDrizzleBicycleModelFixture } from './create-bicycle-model-fixtures';
+import { createDrizzleBicycleFixture } from './create-drizzle-bicycle-fixtures';
+import { createDrizzleBicycleModelFixture } from './create-drizzle-bicycle-model-fixtures';
 import { createDrizzleBrandFixtures } from './create-drizzle-brand-fixtures';
 import { DB } from 'src';
 import { createDrizzleSparePartFixture } from './create-drizzle-spare-part-fixtures';
