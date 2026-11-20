@@ -1,6 +1,7 @@
 import { BicycleModel } from './bicycle-model/bicycle-model.model';
 import { SparePart } from '../spare-part/spare-part';
 import { Warning } from '../spare-part/warning';
+import { Tire } from '../spare-part/tire';
 
 export interface BicycleConstructorParams {
   id: string;
@@ -48,5 +49,16 @@ export class Bicycle {
     return this.spareParts;
   }
 
-  // Passer uniquement ici pour modifier les spare parts. 
+  mountSparePart(spareParts: SparePart[]): void {
+    const currentSparePartList = this.getSpareParts();
+
+    if (
+      currentSparePartList.filter((part) => part instanceof Tire).length >= 2
+    ) {
+      throw new Error("A bicycle can't have more than two tires");
+    }
+    this.spareParts.push(...spareParts);
+  }
+
+  // Passer uniquement ici pour modifier les spare parts.
 }
