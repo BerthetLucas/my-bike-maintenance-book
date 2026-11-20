@@ -1,15 +1,18 @@
-import { DrizzleBicycleModel } from 'src/db/schema';
-import { createDrizzleBrandFixtures } from './create-drizzle-brand-fixtures';
 import { randomUUID } from 'crypto';
+import {
+  BicycleModel,
+  BicycleModelConstructorParams,
+} from 'src/domain/bicycle/bicycle-model/bicycle-model.model';
+import { createBrandFixtures } from './create-brand-fixtures';
 
-export function createDrizzleBicycleModelFixture(
-  overrides?: Partial<DrizzleBicycleModel>,
-): DrizzleBicycleModel {
-  return {
+export function createBicycleModelFixtures(
+  overrides?: Partial<BicycleModelConstructorParams>,
+): BicycleModel {
+  return new BicycleModel({
     id: randomUUID(),
-    name: 'my-model',
-    usage: 'VTT',
-    brandId: createDrizzleBrandFixtures().id,
+    name: 'my-model-name',
+    brand: createBrandFixtures({ sparePartOnly: false, bicycleOnly: true }),
+    usage: 'Road',
     ...overrides,
-  };
+  });
 }

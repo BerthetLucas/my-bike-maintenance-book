@@ -3,7 +3,7 @@ import { Usage } from '../bicycle/bicycle-usage';
 import { SpareConstructorParams, SparePart } from './spare-part';
 import { Warning } from './warning';
 
-type BrakeConstructorParams = SpareConstructorParams;
+export type BrakeConstructorParams = SpareConstructorParams;
 
 export class Brake extends SparePart {
   constructor({ ...parent }: BrakeConstructorParams) {
