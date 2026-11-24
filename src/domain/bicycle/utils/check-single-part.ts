@@ -3,8 +3,8 @@ import { SparePart } from 'src/domain/spare-part/spare-part';
 import { Tire } from 'src/domain/spare-part/tire';
 
 export function checkSinglePart(
-  spareParts: SparePart[],
   currentSparePartList: SparePart[],
+  spareParts: SparePart[],
 ) {
   const allMountedParts = [...currentSparePartList, ...spareParts];
 

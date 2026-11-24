@@ -1,7 +1,7 @@
 import { BicycleModel } from './bicycle-model/bicycle-model.model';
 import { SparePart } from '../spare-part/spare-part';
 import { Warning } from '../spare-part/warning';
-import { checkDuplicatedParts } from './utils/check-duplicated-parts copy';
+import { checkDuplicatedParts } from './utils/check-duplicated-parts';
 import { checkSinglePart } from './utils/check-single-part';
 
 export interface BicycleConstructorParams {
@@ -58,6 +58,4 @@ export class Bicycle {
 
     this.spareParts.push(...spareParts);
   }
-
-  // Passer uniquement ici pour modifier les spare parts.
 }

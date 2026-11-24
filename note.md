@@ -48,3 +48,11 @@ I'm able to create parts and now I have to think of :
 TODO : Add Spare part should be an array so we can create several part in the same time for a bike
 
 TODO: A spare part cannot have a brand that is bycicleonly
+
+**24/11**
+
+Changement de paradigme avec le save et l'agrégat, la DB pert la responsabilité de la création des ID, c'est maintenant le domaine qui gère ses objets et va créer lui même les ID avant les insertions en DB
+
+**Notion de transactions :**
+
+On pourrait enchainer les actions d'update dans le repository MAIS la transaction permet de prendre ce batch d'action et de rollback, cad si j'update les kilomètres de mon vélo, mais qu'il y a un soucis au moment de l'update des pièces on va pouvoir faire un rollback propre et sans créer de décalage entre les données. Dans certains cas cela peux aussi permettre de s'assurer de la cohérence des objets du domaine et donc de ne pas se retrouver dans des cas non prévu.

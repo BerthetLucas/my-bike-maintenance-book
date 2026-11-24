@@ -17,7 +17,21 @@ describe('Mount Spare Part on a bicycle', () => {
     });
   });
 
-  describe('When the bicycle allready have 2 tires', () => {
+  describe('When I mount different kinds of parts on an empty bicycle', () => {
+    it('should mount all of them', () => {
+      const bicycle = createBicycleFixtures();
+      const brake = createBrakeFixtures();
+      const chain = createChainFixture();
+
+      bicycle.mountSparePart([brake, chain]);
+
+      expect(bicycle.getSpareParts()).toEqual(
+        expect.arrayContaining([brake, chain]),
+      );
+    });
+  });
+
+  describe('When the bicycle already has 2 tires', () => {
     it('should not be able to mount a third one', () => {
       const firstTire = createTireFixtures();
       const secondTire = createTireFixtures();
@@ -31,9 +45,19 @@ describe('Mount Spare Part on a bicycle', () => {
         "A bicycle can't have more than two tires",
       );
     });
+
+    it('should still be able to mount a chain', () => {
+      const bicycle = createBicycleFixtures({
+        spareParts: [createTireFixtures(), createTireFixtures()],
+      });
+
+      expect(() =>
+        bicycle.mountSparePart([createChainFixture()]),
+      ).not.toThrow();
+    });
   });
 
-  describe('When the biycle allready have 2 brakes', () => {
+  describe('When the bicycle already has 2 brakes', () => {
     it('should not be able to mount a third one', () => {
       const firstBrake = createBrakeFixtures();
       const secondBrake = createBrakeFixtures();
@@ -49,7 +73,21 @@ describe('Mount Spare Part on a bicycle', () => {
     });
   });
 
-  describe('When the biycle have a chain mounted', () => {
+  describe('When I mount 3 brakes at once on an empty bicycle', () => {
+    it('should refuse them', () => {
+      const bicycle = createBicycleFixtures();
+
+      expect(() =>
+        bicycle.mountSparePart([
+          createBrakeFixtures(),
+          createBrakeFixtures(),
+          createBrakeFixtures(),
+        ]),
+      ).toThrow("A bicycle can't have more than two brakes");
+    });
+  });
+
+  describe('When the bicycle has a chain mounted', () => {
     it('should not be able to mount another one', () => {
       const firstChain = createChainFixture();
       const secondChain = createChainFixture();
@@ -61,6 +99,16 @@ describe('Mount Spare Part on a bicycle', () => {
       expect(() => bicycle.mountSparePart([secondChain])).toThrow(
         'A bicycle can only contain one unit of these parts',
       );
+    });
+  });
+
+  describe('When I mount 2 chains at once on an empty bicycle', () => {
+    it('should refuse them', () => {
+      const bicycle = createBicycleFixtures();
+
+      expect(() =>
+        bicycle.mountSparePart([createChainFixture(), createChainFixture()]),
+      ).toThrow('A bicycle can only contain one unit of these parts');
     });
   });
 });
