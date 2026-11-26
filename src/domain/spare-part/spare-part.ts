@@ -1,4 +1,3 @@
-import { Brand } from '../brand/brand.model';
 import { Usage } from '../bicycle/bicycle-usage';
 import { Warning } from './warning';
 
@@ -6,24 +5,20 @@ export interface SpareConstructorParams {
   id: string;
   km: number;
   mountedAt: Date;
-  brand: Brand;
+  brandId: string;
 }
 
 export abstract class SparePart {
   private km: number;
   private id: string;
   private mountedAt: Date;
-  private brand: Brand;
+  private brandId: string;
 
-  constructor({ km, id, mountedAt, brand }: SpareConstructorParams) {
-    if (brand.bicycleOnly) {
-      throw new Error('This brand is for bicycle only');
-    }
-
+  constructor({ km, id, mountedAt, brandId }: SpareConstructorParams) {
     this.km = km;
     this.id = id;
     this.mountedAt = mountedAt;
-    this.brand = brand;
+    this.brandId = brandId;
   }
 
   abstract getWarnings(usage: Usage): Warning[];
@@ -48,7 +43,7 @@ export abstract class SparePart {
     return this.id;
   }
 
-  getBrand(): Brand {
-    return this.brand;
+  getBrandId(): string {
+    return this.brandId;
   }
 }

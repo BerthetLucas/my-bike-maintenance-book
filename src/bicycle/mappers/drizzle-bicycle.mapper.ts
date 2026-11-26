@@ -43,9 +43,7 @@ export class DrizzleBicycleMapper {
       isMarked: bicycle.isMarked,
       model: this.modelMapper.toDomain({ model, brand }),
       km: bicycle.km,
-      spareParts: spareParts.map((s) =>
-        this.sparePartMapper.toDomain(s, s.brand),
-      ),
+      spareParts: spareParts.map((s) => this.sparePartMapper.toDomain(s)),
     });
   }
 }
