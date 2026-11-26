@@ -3,7 +3,6 @@ import {
   BicycleModel,
   BicycleModelConstructorParams,
 } from 'src/domain/bicycle/bicycle-model/bicycle-model.model';
-import { createBrandFixtures } from './create-brand-fixtures';
 
 export function createBicycleModelFixtures(
   overrides?: Partial<BicycleModelConstructorParams>,
@@ -11,7 +10,7 @@ export function createBicycleModelFixtures(
   return new BicycleModel({
     id: randomUUID(),
     name: 'my-model-name',
-    brand: createBrandFixtures({ sparePartOnly: false, bicycleOnly: true }),
+    brandId: randomUUID(),
     usage: 'Road',
     ...overrides,
   });
