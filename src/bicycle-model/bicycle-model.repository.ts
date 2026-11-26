@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
 import type { DB } from '../index';
 import { InjectDb } from 'src/db/db.provider';
-import { bicycleModel, brand } from 'src/db/schema';
+import { bicycleModel } from 'src/db/schema';
 import { CreateBicycleModelMapper } from './mappers/create-bicycle-model.mapper';
 import { DrizzleBicycleModelMapper } from './mappers/drizzle-bicycle-model.mapper';
 import { NewBicycleModel } from './models/new-bicycle-model.model';
@@ -23,13 +22,7 @@ export class BicycleModelRepository {
   }
 
   async getAll(): Promise<BicycleModel[]> {
-    const rows = await this.db
-      .select({
-        model: bicycleModel,
-        brand,
-      })
-      .from(bicycleModel)
-      .innerJoin(brand, eq(bicycleModel.brandId, brand.id));
+    const rows = await this.db.query.bicycleModel.findMany();
 
     return rows.map((r) => this.dbMapper.toDomain(r));
   }
