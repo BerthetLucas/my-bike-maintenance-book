@@ -80,7 +80,7 @@ export class BicycleRepository {
   async save(bicycle: Bicycle): Promise<void> {
     await this.db.transaction(async (tx) => {
       await tx
-        .update(bicycleTable)
+        .update(bicycleTable) // Devrait être un insert on conflictDoUpdate
         .set(this.bicycleMapper.fromDomain(bicycle))
         .where(eq(bicycleTable.id, bicycle.id));
 

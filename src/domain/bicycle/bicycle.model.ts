@@ -1,8 +1,10 @@
 import { BicycleModel } from './bicycle-model/bicycle-model.model';
 import { SparePart } from '../spare-part/spare-part';
 import { Warning } from '../spare-part/warning';
-import { checkDuplicatedParts } from './utils/check-duplicated-parts';
-import { checkSinglePart } from './utils/check-single-part';
+import { Tire } from '../spare-part/tire';
+import { Brake } from '../spare-part/brake';
+import { Chain } from '../spare-part/chain';
+import { SparePartsInconsistencyError } from './spare-parts-inconsistency.error';
 
 export interface BicycleConstructorParams {
   id: string;
@@ -35,11 +37,14 @@ export class Bicycle {
     this.model = model;
     this.km = km;
     this.spareParts = spareParts;
+
+    this.validate();
   }
 
   addKm(km: number) {
     this.spareParts.forEach((sp) => sp.addKm(km));
     this.km += km;
+    this.validate();
   }
 
   getWarnings(): Warning[] {
@@ -51,11 +56,27 @@ export class Bicycle {
   }
 
   mountSparePart(spareParts: SparePart[]): void {
-    const currentSparePartList = this.getSpareParts();
-
-    checkDuplicatedParts(currentSparePartList, spareParts);
-    checkSinglePart(currentSparePartList, spareParts);
-
     this.spareParts.push(...spareParts);
+    this.validate();
+  }
+
+  validate() {
+    if (this.spareParts.filter((part) => part instanceof Tire).length > 2) {
+      throw new SparePartsInconsistencyError(
+        "A bicycle can't have more than two tires",
+      );
+    }
+
+    if (this.spareParts.filter((part) => part instanceof Brake).length > 2) {
+      throw new SparePartsInconsistencyError(
+        "A bicycle can't have more than two brakes",
+      );
+    }
+
+    if (this.spareParts.filter((part) => part instanceof Chain).length > 1) {
+      throw new SparePartsInconsistencyError(
+        'A bicycle can only contain one unit of these parts',
+      );
+    }
   }
 }

@@ -18,7 +18,7 @@ export class MountSparePartUseCase {
 
   async execute(
     bicycleId: string,
-    spareParts: MountSparePartDto[],
+    spareParts: MountSparePartDto[], // TODO:  Non, on doit parler domain ici mais ça pourrait être une commande
   ): Promise<void> {
     const bicycle = await this.bicycleRepository.getById(bicycleId);
 
