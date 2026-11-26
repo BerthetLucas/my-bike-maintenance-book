@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { DrizzleBrandMapper } from 'src/brand/mappers/drizzle-brand.mapper';
-import { DrizzleBrand, DrizzleSparePart } from 'src/db/schema';
+import {
+  DrizzleBrand,
+  DrizzleNewSparePart,
+  DrizzleSparePart,
+} from 'src/db/schema';
 import { Brake } from 'src/domain/spare-part/brake';
 import { Chain } from 'src/domain/spare-part/chain';
 import { SparePart } from 'src/domain/spare-part/spare-part';
@@ -47,5 +51,38 @@ export class DrizzleSparePartMapper {
       recommendedPressure,
       season,
     });
+  }
+
+  fromDomain(sparePart: SparePart, bicycleId: string): DrizzleNewSparePart {
+    const common = {
+      id: sparePart.getId(),
+      km: sparePart.getKm(),
+      mountedAt: sparePart.getmountedAt(),
+      brandId: sparePart.getBrand().id,
+      bicycleId,
+      isMountedOnABicycle: true,
+    };
+
+    if (sparePart instanceof Tire) {
+      return {
+        ...common,
+        type: 'Tire',
+        season: sparePart.season,
+        recommendedPressure: sparePart.recommendedPressure,
+      };
+    }
+
+    if (sparePart instanceof Brake) {
+      return {
+        ...common,
+        type: 'Brake',
+      };
+    }
+
+    if (sparePart instanceof Chain) {
+      return { ...common, type: 'Chain' };
+    }
+
+    throw new Error('Unknown spare part type');
   }
 }

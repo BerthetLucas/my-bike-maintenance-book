@@ -13,12 +13,15 @@ import { CreateBicycleMapper } from './mappers/create-bicycle.mapper';
 import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
 import { BicycleListItemMapper } from './mappers/bicycle-list-item.mapper';
 import { SparePartModule } from 'src/spare-part/spare-part.module';
+import { MountSparePartsController } from './controllers/mount-spare-part.controller';
+import { MountSparePartUseCase } from './usecases/mount-spare-part.usecase';
 
 @Module({
   controllers: [
     GetOneBicycleController,
     GetAllBicycleController,
     CreateBicycleController,
+    MountSparePartsController,
   ],
   providers: [
     CreateBicycleUseCase,
@@ -29,6 +32,7 @@ import { SparePartModule } from 'src/spare-part/spare-part.module';
     CreateBicycleMapper,
     BicycleMapper,
     BicycleListItemMapper,
+    MountSparePartUseCase,
   ],
   imports: [BicycleModelModule, BrandModule, SparePartModule],
 })
