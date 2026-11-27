@@ -1,12 +1,9 @@
 import request from 'supertest';
 import { randomUUID } from 'crypto';
-import { dropAllTables } from '../../../../test/drop-all-tables';
-import {
-  TestContext,
-  getTestContext,
-} from '../../../../test/get-test-app.test-utils';
-import { createTestBicycle } from '../../../../test/fixtures/create-test-bicycle';
-import { createBrandFixtures } from '../../../../test/fixtures/create-brand-fixtures';
+import { dropAllTables } from '@test/drop-all-tables';
+import { TestContext, getTestContext } from '@test/get-test-app.test-utils';
+import { createTestBicycle } from '@test/fixtures/create-test-bicycle';
+import { createBrandFixtures } from '@test/fixtures/create-brand-fixtures';
 import { brand as brandTable } from 'src/db/schema';
 
 describe('Mount spare parts integration test', () => {

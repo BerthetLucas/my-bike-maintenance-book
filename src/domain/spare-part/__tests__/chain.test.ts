@@ -1,4 +1,4 @@
-import { createChainFixture } from '../../../../test/fixtures/create-chain-fixtures';
+import { createChainFixture } from '@test/fixtures/create-chain-fixtures';
 import { Warning } from '../warning';
 
 describe('chain', () => {
