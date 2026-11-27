@@ -1,11 +1,13 @@
-import { BicycleModel } from 'src/domain/bicycle/bicycle-model/bicycle-model.model';
+import { GetAllBicycleModelsUseCaseOutPut } from '../usecases/get-all-bicycles_models.usecase';
 
 export class BicycleModelMapper {
-  toDto(model: BicycleModel) {
+  toDto(command: GetAllBicycleModelsUseCaseOutPut) {
+    const { model, brand } = command;
+
     return {
       id: model.id,
       name: model.name,
-      brandName: model.brand.name,
+      brandName: brand.name,
     };
   }
 }

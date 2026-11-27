@@ -1,6 +1,5 @@
 import { randomUUID } from 'crypto';
 import { Brake, BrakeConstructorParams } from 'src/domain/spare-part/brake';
-import { createBrandFixtures } from './create-brand-fixtures';
 
 export function createBrakeFixtures(
   overrides?: Partial<BrakeConstructorParams>,
@@ -8,7 +7,7 @@ export function createBrakeFixtures(
   return new Brake({
     id: randomUUID(),
     km: 100,
-    brand: createBrandFixtures(),
+    brandId: randomUUID(),
     mountedAt: new Date(),
     ...overrides,
   });

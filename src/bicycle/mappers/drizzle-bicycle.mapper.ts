@@ -28,7 +28,6 @@ export class DrizzleBicycleMapper {
 
   toDomain({
     bicycle,
-    brand,
     model,
     spareParts,
   }: {
@@ -41,11 +40,9 @@ export class DrizzleBicycleMapper {
       id: bicycle.id,
       name: bicycle.name,
       isMarked: bicycle.isMarked,
-      model: this.modelMapper.toDomain({ model, brand }),
+      model: this.modelMapper.toDomain(model),
       km: bicycle.km,
-      spareParts: spareParts.map((s) =>
-        this.sparePartMapper.toDomain(s, s.brand),
-      ),
+      spareParts: spareParts.map((s) => this.sparePartMapper.toDomain(s)),
     });
   }
 }

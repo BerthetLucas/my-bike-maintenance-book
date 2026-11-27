@@ -1,6 +1,5 @@
 import { randomUUID } from 'crypto';
 import { Tire, TireConstructorParams } from 'src/domain/spare-part/tire';
-import { createBrandFixtures } from './create-brand-fixtures';
 
 export function createTireFixtures(
   overrides?: Partial<TireConstructorParams>,
@@ -11,7 +10,7 @@ export function createTireFixtures(
     recommendedPressure: 10,
     km: 0,
     mountedAt: new Date(),
-    brand: createBrandFixtures(),
+    brandId: randomUUID(),
     ...overrides,
   });
 }

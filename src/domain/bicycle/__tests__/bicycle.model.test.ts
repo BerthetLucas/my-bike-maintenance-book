@@ -2,6 +2,7 @@ import { createTireFixtures } from '../../../../test/fixtures/create-tire-fixtur
 import { createBicycleFixtures } from '../../../../test/fixtures/create-bicycle-fixtures';
 import { createBrakeFixtures } from '../../../../test/fixtures/create-brake-fixtures';
 import { createChainFixture } from '../../../../test/fixtures/create-chain-fixtures';
+import { SparePartsInconsistencyError } from '../spare-parts-inconsistency.error';
 
 describe('Mount Spare Part on a bicycle', () => {
   describe('When I mount a tire', () => {
@@ -42,7 +43,7 @@ describe('Mount Spare Part on a bicycle', () => {
       });
 
       expect(() => bicycle.mountSparePart([thirdTire])).toThrow(
-        "A bicycle can't have more than two tires",
+        SparePartsInconsistencyError,
       );
     });
 
@@ -68,7 +69,7 @@ describe('Mount Spare Part on a bicycle', () => {
       });
 
       expect(() => bicycle.mountSparePart([thirdBrake])).toThrow(
-        "A bicycle can't have more than two brakes",
+        SparePartsInconsistencyError,
       );
     });
   });
@@ -83,7 +84,7 @@ describe('Mount Spare Part on a bicycle', () => {
           createBrakeFixtures(),
           createBrakeFixtures(),
         ]),
-      ).toThrow("A bicycle can't have more than two brakes");
+      ).toThrow(SparePartsInconsistencyError);
     });
   });
 
@@ -97,7 +98,7 @@ describe('Mount Spare Part on a bicycle', () => {
       });
 
       expect(() => bicycle.mountSparePart([secondChain])).toThrow(
-        'A bicycle can only contain one unit of these parts',
+        SparePartsInconsistencyError,
       );
     });
   });
@@ -108,7 +109,7 @@ describe('Mount Spare Part on a bicycle', () => {
 
       expect(() =>
         bicycle.mountSparePart([createChainFixture(), createChainFixture()]),
-      ).toThrow('A bicycle can only contain one unit of these parts');
+      ).toThrow(SparePartsInconsistencyError);
     });
   });
 });

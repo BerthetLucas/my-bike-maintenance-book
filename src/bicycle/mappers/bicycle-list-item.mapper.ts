@@ -1,14 +1,16 @@
-import { Bicycle } from 'src/domain/bicycle/bicycle.model';
 import { BicycleListItemResponseDto } from '../dto/bicycle-list-item-response.dto';
+import { GetAllBicyclesUseCaseOutPut } from '../usecases/get-all-bicycles.usecase';
 
 export class BicycleListItemMapper {
-  toDto(bicycle: Bicycle): BicycleListItemResponseDto {
+  toDto(command: GetAllBicyclesUseCaseOutPut): BicycleListItemResponseDto {
+    const { bicycle, brand } = command;
+
     return {
       id: bicycle.id,
       name: bicycle.name,
       isMarked: bicycle.isMarked,
       modelName: bicycle.model.name,
-      brandName: bicycle.model.brand.name,
+      brandName: brand.name,
       km: bicycle.km,
       warnings: bicycle.getWarnings(),
     };

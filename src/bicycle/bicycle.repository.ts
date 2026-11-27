@@ -9,7 +9,6 @@ import { NewBicycle } from './models/new-bicycle.model';
 import { CreateBicycleMapper } from './mappers/create-bicycle.mapper';
 import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
 import { Bicycle } from 'src/domain/bicycle/bicycle.model';
-import { eq } from 'drizzle-orm';
 import { DrizzleSparePartMapper } from 'src/spare-part/mappers/drizzle-spare-part-mapper';
 
 @Injectable()
@@ -80,9 +79,12 @@ export class BicycleRepository {
   async save(bicycle: Bicycle): Promise<void> {
     await this.db.transaction(async (tx) => {
       await tx
-        .update(bicycleTable)
-        .set(this.bicycleMapper.fromDomain(bicycle))
-        .where(eq(bicycleTable.id, bicycle.id));
+        .insert(bicycleTable)
+        .values(this.bicycleMapper.fromDomain(bicycle))
+        .onConflictDoUpdate({
+          target: bicycleTable.id,
+          set: this.bicycleMapper.fromDomain(bicycle),
+        });
 
       const spareParts = bicycle
         .getSpareParts()
