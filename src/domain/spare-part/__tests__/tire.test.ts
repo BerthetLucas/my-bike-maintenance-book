@@ -1,4 +1,4 @@
-import { createTireFixtures } from '../../../../test/fixtures/create-tire-fixtures';
+import { createTireFixtures } from '@test/fixtures/create-tire-fixtures';
 import { Warning } from '../warning';
 
 describe('tire', () => {

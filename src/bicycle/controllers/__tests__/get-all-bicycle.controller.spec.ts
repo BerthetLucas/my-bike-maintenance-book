@@ -1,12 +1,10 @@
 import request from 'supertest';
-import { dropAllTables } from '../../../../test/drop-all-tables';
-import { createTestBicycle } from '../../../../test/fixtures/create-test-bicycle';
+
+import { createTestBicycle } from '@test/fixtures/create-test-bicycle';
 import { randomUUID } from 'node:crypto';
 import { BicycleResponseDto } from 'src/bicycle/dto/bicycle-response.dto';
-import {
-  TestContext,
-  getTestContext,
-} from '../../../../test/get-test-app.test-utils';
+import { TestContext, getTestContext } from '@test/get-test-app.test-utils';
+import { dropAllTables } from '@test/drop-all-tables';
 
 describe('Get All Bicycle integration test', () => {
   let ctx: TestContext;
