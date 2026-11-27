@@ -3,6 +3,7 @@ import { createBicycleFixtures } from '@test/fixtures/create-bicycle-fixtures';
 import { createBrakeFixtures } from '@test/fixtures/create-brake-fixtures';
 import { createChainFixture } from '@test/fixtures/create-chain-fixtures';
 import { SparePartsInconsistencyError } from '../errors/spare-parts-inconsistency.error';
+import { NegativeDistanceError } from '../errors/negative-distance.error';
 
 describe('Mount Spare Part on a bicycle', () => {
   describe('When I mount a tire', () => {
@@ -110,6 +111,33 @@ describe('Mount Spare Part on a bicycle', () => {
       expect(() =>
         bicycle.mountSparePart([createChainFixture(), createChainFixture()]),
       ).toThrow(SparePartsInconsistencyError);
+    });
+  });
+
+  describe('When I add distance to a bicycle with sparePart I should get the update bicycle and parts', () => {
+    it('should add the distance to the bicycle and its spare parts', () => {
+      const chain = createChainFixture({ km: 0 });
+      const bicycle = createBicycleFixtures({
+        km: 0,
+        spareParts: [chain],
+      });
+
+      bicycle.addKm(10);
+
+      expect(bicycle.km).toEqual(10);
+      expect(bicycle.getSpareParts()[0].getKm()).toEqual(10);
+    });
+  });
+
+  describe('When I add a negative distance', () => {
+    it('should trigger the domain error', () => {
+      const chain = createChainFixture({ km: 0 });
+      const bicycle = createBicycleFixtures({
+        km: 0,
+        spareParts: [chain],
+      });
+
+      expect(() => bicycle.addKm(-10)).toThrow(NegativeDistanceError);
     });
   });
 });

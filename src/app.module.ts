@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
+import { APP_PIPE } from '@nestjs/core';
 import { DbModule } from './db/db.module';
 import { ConfigModule } from '@nestjs/config';
 import { BicycleModule } from './bicycle/bicycle.module';
@@ -16,6 +17,12 @@ import { SparePartModule } from './spare-part/spare-part.module';
     BicycleModelModule,
     BrandModule,
     SparePartModule,
+  ],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
   ],
 })
 export class AppModule {}
