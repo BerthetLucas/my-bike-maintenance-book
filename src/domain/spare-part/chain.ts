@@ -1,5 +1,5 @@
 import { Usage } from '../bicycle/bicycle-usage';
-import { SpareConstructorParams, SparePart } from './spare-part';
+import { SpareConstructorParams, SparePart, SparePartType } from './spare-part';
 import { Warning } from './warning';
 
 export type ChainConstructorParams = SpareConstructorParams;
@@ -21,5 +21,9 @@ export class Chain extends SparePart {
     }
 
     return [];
+  }
+
+  getSparePartType(): SparePartType {
+    return 'Chain';
   }
 }
