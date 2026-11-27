@@ -7,6 +7,7 @@ import { Brand } from 'src/domain/brand/brand.model';
 export interface GetBicycleUseCaseOutPut {
   bicycle: Bicycle;
   brand: Brand;
+  sparePartsBrands: Brand[];
 }
 
 @Injectable()
@@ -19,7 +20,22 @@ export class GetBicycleUseCase {
   async execute(id: string): Promise<GetBicycleUseCaseOutPut> {
     const bicycle = await this.bicycleRepository.getById(id);
     const brand = await this.brandRepository.getOne(bicycle.model.brandId);
+    const brands = await this.brandRepository.getAll();
 
-    return { bicycle, brand };
+    const spareParts = bicycle.getSpareParts();
+
+    const sparePartsBrands: Brand[] = [];
+
+    spareParts.map((s) => {
+      const sparePartBrand = brands.find((b) => b.id === s.getBrandId());
+
+      if (!sparePartBrand) {
+        throw new Error('This part has no brand');
+      }
+
+      sparePartsBrands.push(sparePartBrand);
+    });
+
+    return { bicycle, brand, sparePartsBrands };
   }
 }

@@ -21,6 +21,7 @@ describe('Get one Bicycle integration test', () => {
 
   it(`/GET bicycles`, async () => {
     const bicycleId = randomUUID();
+    const sparePartId = randomUUID();
 
     await createTestBicycle({
       db: ctx.db,
@@ -34,6 +35,10 @@ describe('Get one Bicycle integration test', () => {
       },
       brandOverrides: {
         name: 'Decathlon',
+      },
+      sparePartOverrides: {
+        id: sparePartId,
+        mountedAt: new Date('2026-01-01'),
       },
     });
 
@@ -49,6 +54,16 @@ describe('Get one Bicycle integration test', () => {
       modelName: 'Rockridder 2000',
       brandName: 'Decathlon',
       km: 0,
+      spareParts: [
+        {
+          id: sparePartId,
+          type: 'Brake',
+          km: 100,
+          mountedAt: '2026-01-01T00:00:00.000Z',
+          brandName: 'my-brand',
+          warnings: [],
+        },
+      ],
     });
   });
 
