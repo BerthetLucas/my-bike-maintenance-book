@@ -2,7 +2,7 @@ import { createTireFixtures } from '@test/fixtures/create-tire-fixtures';
 import { createBicycleFixtures } from '@test/fixtures/create-bicycle-fixtures';
 import { createBrakeFixtures } from '@test/fixtures/create-brake-fixtures';
 import { createChainFixture } from '@test/fixtures/create-chain-fixtures';
-import { SparePartsInconsistencyError } from '../spare-parts-inconsistency.error';
+import { SparePartsInconsistencyError } from '../errors/spare-parts-inconsistency.error';
 
 describe('Mount Spare Part on a bicycle', () => {
   describe('When I mount a tire', () => {
