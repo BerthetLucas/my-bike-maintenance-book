@@ -56,3 +56,9 @@ Changement de paradigme avec le save et l'agrégat, la DB pert la responsabilit�
 **Notion de transactions :**
 
 On pourrait enchainer les actions d'update dans le repository MAIS la transaction permet de prendre ce batch d'action et de rollback, cad si j'update les kilomètres de mon vélo, mais qu'il y a un soucis au moment de l'update des pièces on va pouvoir faire un rollback propre et sans créer de décalage entre les données. Dans certains cas cela peux aussi permettre de s'assurer de la cohérence des objets du domaine et donc de ne pas se retrouver dans des cas non prévu.
+
+**28/11**
+
+TODO: `POST /brands` et `POST /bicycles-models` doivent renvoyer `{ id }` (actuellement `void`) pour que le front puisse sélectionner direct la marque / le modèle créé
+
+TODO: Mount d'une pièce au-delà de la limite (ex: 2e chaîne) renvoie un 500 "Internal server error" → renvoyer une 4xx (400/409/422) avec un message clair
