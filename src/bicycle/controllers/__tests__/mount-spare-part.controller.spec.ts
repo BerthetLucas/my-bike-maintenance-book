@@ -65,4 +65,8 @@ describe('Mount spare parts integration test', () => {
     expect(result.length).toBe(2);
     expect(result).toEqual(expect.arrayContaining([chain]));
   });
+
+  afterAll(async () => {
+    await ctx.close();
+  });
 });

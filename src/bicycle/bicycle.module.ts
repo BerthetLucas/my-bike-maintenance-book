@@ -16,6 +16,9 @@ import { SparePartModule } from 'src/spare-part/spare-part.module';
 import { MountSparePartsController } from './controllers/mount-spare-part.controller';
 import { MountSparePartUseCase } from './usecases/mount-spare-part.usecase';
 import { MountSparePartMapper } from './mappers/mount-spare-part.mapper';
+import { AddKmController } from './controllers/add-km.controller';
+import { AddKmMapper } from './mappers/add-km.mapper';
+import { AddKmUseCase } from './usecases/add-km.usecase';
 
 @Module({
   controllers: [
@@ -23,6 +26,7 @@ import { MountSparePartMapper } from './mappers/mount-spare-part.mapper';
     GetAllBicycleController,
     CreateBicycleController,
     MountSparePartsController,
+    AddKmController,
   ],
   providers: [
     CreateBicycleUseCase,
@@ -35,6 +39,8 @@ import { MountSparePartMapper } from './mappers/mount-spare-part.mapper';
     BicycleListItemMapper,
     MountSparePartUseCase,
     MountSparePartMapper,
+    AddKmMapper,
+    AddKmUseCase,
   ],
   imports: [BicycleModelModule, BrandModule, SparePartModule],
 })

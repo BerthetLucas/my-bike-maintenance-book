@@ -4,7 +4,8 @@ import { Warning } from '../spare-part/warning';
 import { Tire } from '../spare-part/tire';
 import { Brake } from '../spare-part/brake';
 import { Chain } from '../spare-part/chain';
-import { SparePartsInconsistencyError } from './spare-parts-inconsistency.error';
+import { SparePartsInconsistencyError } from './errors/spare-parts-inconsistency.error';
+import { NegativeDistanceError } from './errors/negative-distance.error';
 
 export interface BicycleConstructorParams {
   id: string;
@@ -42,6 +43,12 @@ export class Bicycle {
   }
 
   addKm(km: number) {
+    if (km < 1) {
+      throw new NegativeDistanceError(
+        'An add distance can not be less than 1 km',
+      );
+    }
+
     this.spareParts.forEach((sp) => sp.addKm(km));
     this.km += km;
     this.validate();
