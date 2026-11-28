@@ -6,6 +6,7 @@ import { Brake } from '../spare-part/brake';
 import { Chain } from '../spare-part/chain';
 import { SparePartsInconsistencyError } from './errors/spare-parts-inconsistency.error';
 import { NegativeDistanceError } from './errors/negative-distance.error';
+import { SparePartReplacementInconsistencyError } from './errors/spare-part-replacement-inconsistency.error';
 
 export interface BicycleConstructorParams {
   id: string;
@@ -85,5 +86,29 @@ export class Bicycle {
         'A bicycle can only contain one unit of these parts',
       );
     }
+  }
+
+  replaceSparePart(newSparePart: SparePart, sparePartToReplaceId: string) {
+    const sparePartToReplace = this.spareParts.find(
+      (sp) => sp.getId() === sparePartToReplaceId,
+    );
+
+    if (!sparePartToReplace) {
+      throw new SparePartReplacementInconsistencyError(
+        'The spare part you want to replace does not exist',
+      );
+    }
+
+    if (
+      newSparePart.getSparePartType() !== sparePartToReplace.getSparePartType()
+    ) {
+      throw new SparePartReplacementInconsistencyError(
+        'You can not replace a spare part type by another one',
+      );
+    }
+
+    this.spareParts = this.spareParts.filter((sp) => sp !== sparePartToReplace);
+
+    this.mountSparePart([newSparePart]);
   }
 }

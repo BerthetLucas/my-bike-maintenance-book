@@ -4,6 +4,8 @@ import { createBrakeFixtures } from '@test/fixtures/create-brake-fixtures';
 import { createChainFixture } from '@test/fixtures/create-chain-fixtures';
 import { SparePartsInconsistencyError } from '../errors/spare-parts-inconsistency.error';
 import { NegativeDistanceError } from '../errors/negative-distance.error';
+import { randomUUID } from 'crypto';
+import { SparePartReplacementInconsistencyError } from '../errors/spare-part-replacement-inconsistency.error';
 
 describe('Mount Spare Part on a bicycle', () => {
   describe('When I mount a tire', () => {
@@ -138,6 +140,31 @@ describe('Mount Spare Part on a bicycle', () => {
       });
 
       expect(() => bicycle.addKm(-10)).toThrow(NegativeDistanceError);
+    });
+  });
+
+  describe('When I need to replace a part', () => {
+    it('should replace the part if an old shared type spare part is present', () => {
+      const oldSparePartId = randomUUID();
+
+      const oldSparePart = createChainFixture({ id: oldSparePartId });
+
+      const newSparePart = createChainFixture();
+      const bicycle = createBicycleFixtures({ spareParts: [oldSparePart] });
+
+      bicycle.replaceSparePart(newSparePart, oldSparePartId);
+
+      expect(bicycle.spareParts[0].getId()).toStrictEqual(newSparePart.getId());
+    });
+
+    it('should throw an error if their is no spare part to replace', () => {
+      const bicycle = createBicycleFixtures();
+      const newSparePart = createChainFixture();
+      const notMountedSparePart = createChainFixture();
+
+      expect(() =>
+        bicycle.replaceSparePart(newSparePart, notMountedSparePart.getId()),
+      ).toThrow(SparePartReplacementInconsistencyError);
     });
   });
 });

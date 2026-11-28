@@ -10,6 +10,7 @@ import { CreateBicycleMapper } from './mappers/create-bicycle.mapper';
 import { DrizzleBicycleMapper } from './mappers/drizzle-bicycle.mapper';
 import { Bicycle } from 'src/domain/bicycle/bicycle.model';
 import { DrizzleSparePartMapper } from 'src/spare-part/mappers/drizzle-spare-part-mapper';
+import { and, eq, notInArray } from 'drizzle-orm';
 
 @Injectable()
 export class BicycleRepository {
@@ -89,6 +90,19 @@ export class BicycleRepository {
       const spareParts = bicycle
         .getSpareParts()
         .map((sp) => this.sparePartMapper.fromDomain(sp, bicycle.id));
+
+      await tx
+        .update(sparePartTable)
+        .set({ isMountedOnABicycle: false })
+        .where(
+          and(
+            eq(sparePartTable.bicycleId, bicycle.id),
+            notInArray(
+              sparePartTable.id,
+              bicycle.getSpareParts().map((s) => s.getId()),
+            ),
+          ),
+        );
 
       for (const sparePart of spareParts) {
         await tx
